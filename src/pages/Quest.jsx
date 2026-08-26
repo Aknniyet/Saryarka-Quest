@@ -48,6 +48,51 @@ function svgEscape(value) {
   return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[char]);
 }
 
+function CertificatePreview({ certName, rank, score, total, onDownload, onRestart }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const image = new Image();
+    image.src = "/certificate-template.png";
+    image.onload = () => {
+      const width = 1542;
+      const height = Math.round((image.naturalHeight / image.naturalWidth) * width);
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(image, 0, 0, width, height);
+      const scale = width / image.naturalWidth;
+      const y = 368 * scale;
+      ctx.fillStyle = "rgba(255,255,255,.96)";
+      ctx.fillRect(width * .28, y - 35, width * .44, 70);
+      ctx.strokeStyle = "#302274";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(width * .29, y + 28);
+      ctx.lineTo(width * .71, y + 28);
+      ctx.stroke();
+      ctx.fillStyle = "#302274";
+      ctx.textAlign = "center";
+      ctx.font = "700 42px Georgia, serif";
+      ctx.fillText(certName.trim(), width / 2, y + 8, width * .40);
+      ctx.font = "600 25px Arial, sans-serif";
+      ctx.fillStyle = "#4d4388";
+      ctx.fillText(`${score} / ${total} · ${rank}`, width / 2, y + 72, width * .52);
+    };
+  }, [certName, rank, score, total]);
+
+  return <div className="mt-7 text-center">
+    <canvas id="certificate-personal" ref={canvasRef} className="mx-auto w-full max-w-3xl rounded-xl shadow-md" />
+    <div className="mt-6 flex flex-wrap justify-center gap-3 print:hidden">
+      <button onClick={onDownload} className="rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-semibold text-white">Скачать сертификат</button>
+      <button onClick={() => window.print()} className="rounded-full bg-[var(--color-steppe)] px-6 py-3 text-sm font-semibold text-white">Печать / PDF</button>
+      <button onClick={onRestart} className="rounded-full bg-[var(--color-cream-dim)] px-6 py-3 text-sm font-semibold">Пройти ещё раз</button>
+    </div>
+    {stage === "certificate" && certCreated && <CertificatePreview certName={certName} rank={rank} score={score} total={TOTAL_POINTS} onDownload={downloadCertificate} onRestart={restartQuest} />}
+  </div>;
+}
+
 export default function Quest() {
   const { t, l, lang } = useLang();
   const saved = useRef(readSavedProgress()).current;
@@ -98,6 +143,19 @@ export default function Quest() {
   }
   function nextStep() { if (stepIndex + 1 < questSteps.length) { setStepIndex((value) => value + 1); resetStep(); setStage("video"); } else setStage("final"); }
   function downloadCertificate() {
+    const canvas = document.getElementById("certificate-personal");
+    if (canvas) {
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = `Saryarka-Quest-${certName.trim().replace(/\s+/g, "-") || "certificate"}.png`;
+        downloadLink.click();
+        URL.revokeObjectURL(url);
+      }, "image/png");
+      return;
+    }
     const downloadLink = document.createElement("a");
     downloadLink.href = "/certificate-template.png";
     downloadLink.download = "Saryarka-Quest-certificate-template.png";
