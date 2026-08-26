@@ -154,10 +154,22 @@ footer span[aria-hidden="true"] { display: none; }
   #certificate-print, #certificate-print * {
     visibility: visible;
   }
-  #certificate-print {
+#certificate-print {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
   }
+}
+
+/* Certificate visual supplied by the project author. */
+#certificate-print {
+  height: clamp(290px, 58vw, 590px);
+  padding: 0 !important;
+  border: 0 !important;
+  background: #fff url("/certificate-template.png") center / contain no-repeat !important;
+}
+#certificate-print > * { visibility: hidden; }
+@media print {
+  #certificate-print > * { visibility: hidden !important; }
 }

@@ -98,6 +98,11 @@ export default function Quest() {
   }
   function nextStep() { if (stepIndex + 1 < questSteps.length) { setStepIndex((value) => value + 1); resetStep(); setStage("video"); } else setStage("final"); }
   function downloadCertificate() {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = "/certificate-template.png";
+    downloadLink.download = "Saryarka-Quest-certificate-template.png";
+    downloadLink.click();
+    return;
     const date = new Date().toLocaleDateString(lang === "kz" ? "kk-KZ" : lang === "ru" ? "ru-RU" : "en-GB");
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1131" viewBox="0 0 1600 1131"><rect width="1600" height="1131" fill="#fffdf7"/><rect x="35" y="35" width="1530" height="1061" rx="28" fill="none" stroke="#c08a44" stroke-width="8"/><rect x="58" y="58" width="1484" height="1015" rx="20" fill="none" stroke="#34532a" stroke-width="2"/><path d="M70 850 C300 690 420 1010 700 850 S1100 670 1530 860" fill="none" stroke="#d6a339" stroke-width="7" opacity=".45"/><circle cx="800" cy="175" r="62" fill="#34532a"/><path d="M755 196 800 132l45 64Z" fill="#fffdf7"/><text x="800" y="270" text-anchor="middle" font-family="Georgia,serif" font-size="31" font-weight="700" fill="#34532a" letter-spacing="6">SARYARKA QUEST</text><text x="800" y="390" text-anchor="middle" font-family="Georgia,serif" font-size="78" font-weight="700" fill="#232b1e">${svgEscape(copy.title)}</text><path d="M670 430h260" stroke="#d6a339" stroke-width="5"/><text x="800" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#4c5642">${svgEscape(copy.awarded)}</text><text x="800" y="590" text-anchor="middle" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#34532a">${svgEscape(certName)}</text><text x="800" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" fill="#4c5642">${svgEscape(copy.completed)}</text><text x="800" y="750" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#4c5642">${score} / ${TOTAL_POINTS} · ${svgEscape(rank)}</text><text x="800" y="1000" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#4c5642">${svgEscape(copy.date)}: ${date}</text></svg>`;
     const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
