@@ -1,0 +1,7 @@
+.leaflet-container { font-family: var(--font-sans); background: #d7ddd0; }
+.leaflet-control-attribution { font-size: 9px !important; opacity: .76; }
+.sq-map-icon { background: transparent !important; border: 0 !important; }
+.sq-map-icon span { display: grid; width: 38px; height: 38px; place-items: center; border: 3px solid white; border-radius: 999px; color: white; font-size: 21px; font-weight: 800; box-shadow: 0 3px 10px rgba(0,0,0,.42); }
+.leaflet-popup-content-wrapper { border-radius: 16px; }
+.leaflet-popup-content { width: 235px !important; margin: 12px; }
+.sq-popup { font-family: var(--font-sans); }
