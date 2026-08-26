@@ -7,10 +7,14 @@ const PLACE_PHOTOS = {
 };
 
 const ANIMAL_PHOTOS = {
-  saiga: "https://images.unsplash.com/photo-1535338454770-8be927b5a00b?auto=format&fit=crop&w=900&q=85",
-  argali: "https://images.unsplash.com/photo-1484406566174-9da000fda645?auto=format&fit=crop&w=900&q=85",
-  roe: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=85",
-  eagle: "https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=900&q=85",
+  saiga: "/animals/saiga.png",
+  argali: "/animals/argali.png",
+  "roe-deer": "/animals/roe-deer.png",
+  "steppe-eagle": "/animals/steppe-eagle.png",
+  flamingo: "/animals/flamingo.png",
+  marmot: "/animals/marmot.png",
+  corsac: "/animals/corsac.png",
+  bustard: "/animals/bustard.png",
 };
 
 export function photoUrl(id, type = "place") {
