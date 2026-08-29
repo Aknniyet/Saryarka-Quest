@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapContainer, Marker, Popup, Polyline, TileLayer, Tooltip } from "react-leaflet";
+import { MapContainer, Marker, Popup, Polyline, TileLayer, Tooltip, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./SaryarkaMap.css";
@@ -56,8 +56,9 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
   const selected = places.find((place) => place.id === selectedId);
 
   return (
-    <div className={`relative overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#d7ddd0] shadow-[0_18px_50px_rgba(31,49,34,.16)] ${height}`}>
-      <MapContainer center={[50.5, 71.5]} zoom={6.45} minZoom={6} maxZoom={10} scrollWheelZoom className="h-full w-full" maxBounds={[[46.4, 63.3], [54.4, 78.2]]}>
+    <div className={`relative isolate z-0 overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#d7ddd0] shadow-[0_18px_50px_rgba(31,49,34,.16)] ${height}`}>
+      <MapContainer center={[50.5, 71.5]} zoom={6.45} minZoom={6} maxZoom={10} scrollWheelZoom={false} zoomControl={false} className="h-full w-full" maxBounds={[[46.4, 63.3], [54.4, 78.2]]}>
+        <ZoomControl position="bottomright" />
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" attribution="Tiles &copy; Esri" />
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" opacity={0.18} attribution="&copy; OpenStreetMap contributors" />
         {showRoute && <><Polyline positions={route} pathOptions={{ color: "#5a4b1f", weight: 7, opacity: 0.65 }} /><Polyline positions={route} pathOptions={{ color: "#f2c238", weight: 4, opacity: 1 }} /></>}
@@ -76,8 +77,10 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
 
       <aside className="absolute left-4 top-4 z-[401] hidden w-64 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur lg:block">
         <p className="text-sm font-bold text-[var(--color-ink)]">{t("legend_title")}</p>
-        <div className="mt-3 space-y-2.5">{FILTERS.slice(1).map((item) => <div key={item.id} className="flex items-center gap-2 text-xs font-medium text-[var(--color-ink-soft)]"><span className={`sq-legend-symbol ${item.id === "quest" ? "sq-legend-symbol--quest" : ""}`} style={{ backgroundColor: item.color }} />{t(item.legendKey)}</div>)}</div>
-        <div className="mt-4 border-t border-[var(--color-line)] pt-3"><p className="text-[10px] font-bold uppercase tracking-[.13em] text-[var(--color-ink-soft)]">{t("map_filter")}</p><div className="mt-2 grid grid-cols-2 gap-1.5">{FILTERS.map((item) => <button key={item.id} onClick={() => setFilter(item.id)} className={`pointer-events-auto rounded-lg px-2 py-2 text-left text-[11px] font-bold transition ${filter === item.id ? "bg-[var(--color-steppe)] text-white" : "bg-[var(--color-cream)] text-[var(--color-ink-soft)] hover:bg-[var(--color-steppe-mist)]"}`}>{t(item.key)}</button>)}</div></div>
+        <div className="mt-3 space-y-1">
+          <button onClick={() => setFilter("all")} className={`sq-legend-button ${filter === "all" ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: FILTERS[0].color }} />{t("filter_all")}</button>
+          {FILTERS.slice(1).map((item) => <button key={item.id} onClick={() => setFilter(filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className={`sq-legend-symbol ${item.id === "quest" ? "sq-legend-symbol--quest" : ""}`} style={{ backgroundColor: item.color }} />{t(item.legendKey)}</button>)}
+        </div>
         <div className="mt-4 border-t border-[var(--color-line)] pt-3"><button onClick={() => setShowRoute((value) => !value)} className="pointer-events-auto flex w-full items-center justify-between text-left text-xs font-semibold text-[var(--color-ink)]"><span>{t("map_routes")}</span><span className={`relative h-5 w-9 rounded-full ${showRoute ? "bg-[var(--color-steppe)]" : "bg-[var(--color-line)]"}`}><span className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform ${showRoute ? "translate-x-4" : ""}`} /></span></button></div>
       </aside>
 
