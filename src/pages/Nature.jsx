@@ -18,7 +18,7 @@ export default function Nature() {
         <p className="mt-2 text-[var(--color-ink-soft)]">{t("nature_subtitle")}</p>
       </div>
 
-      <div className="hidden mb-8 inline-flex rounded-full border border-[var(--color-line)] bg-white p-1">
+      <div className="!hidden mb-8 inline-flex rounded-full border border-[var(--color-line)] bg-white p-1">
         <button
           onClick={() => setTab("animals")}
           className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
@@ -69,14 +69,12 @@ export default function Nature() {
               Қорықтар мен далалы аймақтарда мекендейтін жануарларды бір картадан таныңыз.
             </p>
           </div>
-          <div className="relative bg-[#253a2b] p-4 sm:p-5">
+          <div className="bg-[#253a2b] p-4 sm:p-5">
             <img
               src="/saryarka-animals-map.png"
               alt="Сарыарқа аңдары картасы"
-              className="mx-auto h-full max-h-[460px] w-full rounded-[1.4rem] object-cover object-center"
+              className="mx-auto aspect-[4/5] w-full rounded-[1.4rem] object-cover object-top"
             />
-            <span aria-hidden="true" className="absolute bottom-[3%] left-[7%] h-8 w-8 rounded-full bg-[#171715] shadow-[0_0_0_2px_rgba(23,23,21,.35)]" />
-            <span aria-hidden="true" className="absolute bottom-[3%] right-[7%] h-8 w-8 rounded-full bg-[#171715] shadow-[0_0_0_2px_rgba(23,23,21,.35)]" />
           </div>
         </section>
       )}
