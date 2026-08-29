@@ -49,6 +49,9 @@ export const t = {
   },
   close: { kz: "Жабу", ru: "Закрыть", en: "Close" },
 
+  map_filter: { kz: "\u0421\u04af\u0437\u0433\u0456", ru: "\u0424\u0438\u043b\u044c\u0442\u0440", en: "Filter" },
+  map_routes: { kz: "\u0411\u0430\u0493\u044b\u0442\u0442\u0430\u0440\u0434\u044b \u043a\u04e9\u0440\u0441\u0435\u0442\u0443", ru: "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043c\u0430\u0440\u0448\u0440\u0443\u0442\u044b", en: "Show routes" },
+
   // Places page
   places_title: { kz: "Сарыарка орындары", ru: "Места Сарыарки", en: "Places of Saryarka" },
   places_subtitle: {

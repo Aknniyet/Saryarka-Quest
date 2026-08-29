@@ -17,7 +17,8 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-line)] bg-[var(--color-cream)]/90 backdrop-blur">
+    <>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-line)] bg-[var(--color-cream)]/95 shadow-[0_2px_14px_rgba(35,43,30,.06)] backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8">
         <NavLink to="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
           <img
@@ -115,5 +116,7 @@ export default function Nav() {
         </div>
       )}
     </header>
+    <div aria-hidden="true" className="h-[69px]" />
+    </>
   );
 }

@@ -1,7 +1,12 @@
 .leaflet-container { font-family: var(--font-sans); background: #d7ddd0; }
 .leaflet-control-attribution { font-size: 9px !important; opacity: .76; }
 .sq-map-icon { background: transparent !important; border: 0 !important; }
-.sq-map-icon span { display: grid; width: 38px; height: 38px; place-items: center; border: 3px solid white; border-radius: 999px; color: white; font-size: 21px; font-weight: 800; box-shadow: 0 3px 10px rgba(0,0,0,.42); }
+.sq-map-pin { display: grid; width: 38px; height: 38px; place-items: center; border: 3px solid white; border-radius: 999px; color: white; font-size: 20px; font-weight: 800; line-height: 1; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,.42); }
+.sq-map-pin--lake { font-size: 23px; }
+.sq-map-pin--quest { font-size: 18px; }
+.sq-legend-symbol { display: inline-grid; width: 24px; height: 24px; flex: 0 0 24px; place-items: center; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
+.sq-legend-symbol::after { content: ""; width: 7px; height: 7px; border-radius: 999px; background: white; }
+.sq-legend-symbol--quest::after { content: "\2605"; width: auto; height: auto; color: white; font-size: 14px; line-height: 1; }
 .leaflet-popup-content-wrapper { border-radius: 16px; }
 .leaflet-popup-content { width: 235px !important; margin: 12px; }
 .sq-popup { font-family: var(--font-sans); }
