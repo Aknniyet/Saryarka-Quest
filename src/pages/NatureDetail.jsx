@@ -19,7 +19,12 @@ export default function NatureDetail() {
       </Link>
 
       <div className="overflow-hidden rounded-3xl border border-[var(--color-line)] shadow-sm">
-        <Photo id={item.id} type={type} alt={l(item.name)} className="h-56 w-full sm:h-64" />
+        <Photo
+          id={item.id}
+          type={type}
+          alt={l(item.name)}
+          className={isAnimal ? "h-[420px] w-full bg-[#edf0e8] object-contain sm:h-[520px]" : "h-56 w-full sm:h-64"}
+        />
       </div>
 
       <div className="mt-6">

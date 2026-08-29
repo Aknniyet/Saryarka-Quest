@@ -18,7 +18,7 @@ export default function Nature() {
         <p className="mt-2 text-[var(--color-ink-soft)]">{t("nature_subtitle")}</p>
       </div>
 
-      <div className="mb-8 inline-flex rounded-full border border-[var(--color-line)] bg-white p-1">
+      <div className="hidden mb-8 inline-flex rounded-full border border-[var(--color-line)] bg-white p-1">
         <button
           onClick={() => setTab("animals")}
           className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
@@ -37,6 +37,25 @@ export default function Nature() {
         </button>
       </div>
 
+      <div className="mb-8 inline-flex rounded-full border border-[var(--color-line)] bg-white p-1">
+        <button
+          onClick={() => setTab("animals")}
+          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+            tab === "animals" ? "bg-[var(--color-steppe)] text-white" : "text-[var(--color-ink-soft)]"
+          }`}
+        >
+          {t("animals")}
+        </button>
+        <button
+          onClick={() => setTab("plants")}
+          className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+            tab === "plants" ? "bg-[var(--color-steppe)] text-white" : "text-[var(--color-ink-soft)]"
+          }`}
+        >
+          {t("plants")}
+        </button>
+      </div>
+
       {tab === "animals" && (
         <section className="mb-10 grid overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#f6f2e9] shadow-[0_18px_45px_rgba(49,67,45,0.09)] md:grid-cols-[minmax(0,1fr)_360px]">
           <div className="flex flex-col justify-center px-7 py-9 sm:px-10">
@@ -50,12 +69,14 @@ export default function Nature() {
               Қорықтар мен далалы аймақтарда мекендейтін жануарларды бір картадан таныңыз.
             </p>
           </div>
-          <div className="bg-[#253a2b] p-4 sm:p-5">
+          <div className="relative bg-[#253a2b] p-4 sm:p-5">
             <img
               src="/saryarka-animals-map.png"
               alt="Сарыарқа аңдары картасы"
               className="mx-auto h-full max-h-[460px] w-full rounded-[1.4rem] object-cover object-center"
             />
+            <span aria-hidden="true" className="absolute bottom-[3%] left-[7%] h-8 w-8 rounded-full bg-[#171715] shadow-[0_0_0_2px_rgba(23,23,21,.35)]" />
+            <span aria-hidden="true" className="absolute bottom-[3%] right-[7%] h-8 w-8 rounded-full bg-[#171715] shadow-[0_0_0_2px_rgba(23,23,21,.35)]" />
           </div>
         </section>
       )}
