@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapContainer, Marker, Popup, Polyline, TileLayer, Tooltip, ZoomControl } from "react-leaflet";
+import { MapContainer, Marker, Popup, Polyline, TileLayer, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./SaryarkaMap.css";
@@ -39,6 +39,19 @@ function pinIcon(type, color) {
   });
 }
 
+function MapZoomControl() {
+  const map = useMap();
+
+  useEffect(() => {
+    map.zoomControl?.remove();
+    const control = L.control.zoom({ position: "bottomright" });
+    control.addTo(map);
+    return () => control.remove();
+  }, [map]);
+
+  return null;
+}
+
 export default function SaryarkaMap({ initialSelected = null, height = "h-[570px] sm:h-[680px] lg:h-[780px]" }) {
   const { t, l } = useLang();
   const [filter, setFilter] = useState("all");
@@ -58,9 +71,8 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
   return (
     <div className={`relative isolate z-0 overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#d7ddd0] shadow-[0_18px_50px_rgba(31,49,34,.16)] ${height}`}>
       <MapContainer center={[50.5, 71.5]} zoom={6.45} minZoom={6} maxZoom={10} scrollWheelZoom={false} zoomControl={false} className="h-full w-full" maxBounds={[[46.4, 63.3], [54.4, 78.2]]}>
-        <ZoomControl position="bottomright" />
+        <MapZoomControl />
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" attribution="Tiles &copy; Esri" />
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" opacity={0.18} attribution="&copy; OpenStreetMap contributors" />
         {showRoute && <><Polyline positions={route} pathOptions={{ color: "#5a4b1f", weight: 7, opacity: 0.65 }} /><Polyline positions={route} pathOptions={{ color: "#f2c238", weight: 4, opacity: 1 }} /></>}
         {visible.map((place) => {
           const type = typeFor(place);
@@ -72,14 +84,13 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
         })}
       </MapContainer>
 
-      <div className="pointer-events-none absolute inset-0 z-[400] bg-[linear-gradient(180deg,rgba(24,43,33,.24),transparent_22%,transparent_74%,rgba(24,43,33,.3))]" />
       <div className="pointer-events-none absolute right-4 top-4 z-[401] max-w-[calc(100%-2rem)] rounded-2xl bg-[rgba(22,45,40,.93)] px-4 py-3 text-white shadow-xl backdrop-blur sm:right-5 sm:top-5 sm:max-w-md"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[var(--color-gold-light)]">Saryarka Quest</p><p className="mt-1 text-sm font-semibold sm:text-base">{t("map_subtitle")}</p></div>
 
       <aside className="absolute left-4 top-4 z-[401] hidden w-64 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur lg:block">
         <p className="text-sm font-bold text-[var(--color-ink)]">{t("legend_title")}</p>
         <div className="mt-3 space-y-1">
           <button onClick={() => setFilter("all")} className={`sq-legend-button ${filter === "all" ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: FILTERS[0].color }} />{t("filter_all")}</button>
-          {FILTERS.slice(1).map((item) => <button key={item.id} onClick={() => setFilter(filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className={`sq-legend-symbol ${item.id === "quest" ? "sq-legend-symbol--quest" : ""}`} style={{ backgroundColor: item.color }} />{t(item.legendKey)}</button>)}
+          {FILTERS.slice(1).filter((item) => item.id !== "quest").map((item) => <button key={item.id} onClick={() => setFilter(filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: item.color }} />{t(item.legendKey)}</button>)}
         </div>
         <div className="mt-4 border-t border-[var(--color-line)] pt-3"><button onClick={() => setShowRoute((value) => !value)} className="pointer-events-auto flex w-full items-center justify-between text-left text-xs font-semibold text-[var(--color-ink)]"><span>{t("map_routes")}</span><span className={`relative h-5 w-9 rounded-full ${showRoute ? "bg-[var(--color-steppe)]" : "bg-[var(--color-line)]"}`}><span className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform ${showRoute ? "translate-x-4" : ""}`} /></span></button></div>
       </aside>
