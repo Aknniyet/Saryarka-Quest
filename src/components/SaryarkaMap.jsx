@@ -116,7 +116,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
         {visible.map((place) => {
           const type = typeFor(place);
           const color = FILTERS.find((item) => item.id === type)?.color || "#39844d";
-          const position = place.coords || COORDINATES[place.id];
+          const position = COORDINATES[place.id] || place.coords;
           const isLandmark = MAP_LANDMARKS.some((item) => item.id === place.id);
           return <Marker key={place.id} position={position} icon={pinIcon(type, color)} eventHandlers={{ click: () => setSelectedId(place.id) }}>
             <Tooltip direction="top" offset={[0, -20]} opacity={0.96}>{l(place.name)}</Tooltip>
