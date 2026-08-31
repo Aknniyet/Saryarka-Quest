@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MapContainer, Marker, Popup, Polyline, TileLayer, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -52,11 +52,37 @@ function MapZoomControl() {
   return null;
 }
 
+function MapInteraction({ fullscreen }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (fullscreen) map.scrollWheelZoom.enable();
+    else map.scrollWheelZoom.disable();
+    const timer = window.setTimeout(() => map.invalidateSize(), 120);
+    return () => window.clearTimeout(timer);
+  }, [fullscreen, map]);
+
+  return null;
+}
+
 export default function SaryarkaMap({ initialSelected = null, height = "h-[570px] sm:h-[680px] lg:h-[780px]" }) {
   const { t, l } = useLang();
   const [filter, setFilter] = useState("all");
   const [showRoute, setShowRoute] = useState(true);
   const [selectedId, setSelectedId] = useState(initialSelected);
+  const [fullscreen, setFullscreen] = useState(false);
+  const mapShellRef = useRef(null);
+
+  useEffect(() => {
+    const updateFullscreen = () => setFullscreen(document.fullscreenElement === mapShellRef.current);
+    document.addEventListener("fullscreenchange", updateFullscreen);
+    return () => document.removeEventListener("fullscreenchange", updateFullscreen);
+  }, []);
+
+  const toggleFullscreen = async () => {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await mapShellRef.current?.requestFullscreen?.();
+  };
 
   const visible = useMemo(() => {
     if (filter === "all") return places;
@@ -69,9 +95,10 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
   const selected = places.find((place) => place.id === selectedId);
 
   return (
-    <div className={`relative isolate z-0 overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#d7ddd0] shadow-[0_18px_50px_rgba(31,49,34,.16)] ${height}`}>
+    <div ref={mapShellRef} className={`sq-map-shell relative isolate z-0 overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#d7ddd0] shadow-[0_18px_50px_rgba(31,49,34,.16)] ${height}`}>
       <MapContainer center={[50.5, 71.5]} zoom={6.45} minZoom={6} maxZoom={10} scrollWheelZoom={false} zoomControl={false} className="h-full w-full" maxBounds={[[46.4, 63.3], [54.4, 78.2]]}>
         <MapZoomControl />
+        <MapInteraction fullscreen={fullscreen} />
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" attribution="Tiles &copy; Esri" />
         {showRoute && <><Polyline positions={route} pathOptions={{ color: "#5a4b1f", weight: 7, opacity: 0.65 }} /><Polyline positions={route} pathOptions={{ color: "#f2c238", weight: 4, opacity: 1 }} /></>}
         {visible.map((place) => {
@@ -94,6 +121,10 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
         </div>
         <div className="mt-4 border-t border-[var(--color-line)] pt-3"><button onClick={() => setShowRoute((value) => !value)} className="pointer-events-auto flex w-full items-center justify-between text-left text-xs font-semibold text-[var(--color-ink)]"><span>{t("map_routes")}</span><span className={`relative h-5 w-9 rounded-full ${showRoute ? "bg-[var(--color-steppe)]" : "bg-[var(--color-line)]"}`}><span className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform ${showRoute ? "translate-x-4" : ""}`} /></span></button></div>
       </aside>
+
+      <button type="button" onClick={toggleFullscreen} className="sq-map-fullscreen-button" aria-label={fullscreen ? "Exit full screen" : "Open map in full screen"} title={fullscreen ? "Exit full screen" : "Full screen map"}>
+        {fullscreen ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4m11-5v5h5M9 20v-5H4m16 5v-5h-5" /></svg> : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5" /></svg>}
+      </button>
 
       {selected && <div className="pointer-events-none absolute bottom-6 right-4 z-[401] hidden rounded-xl bg-white/90 px-3 py-2 text-xs font-semibold text-[var(--color-ink)] shadow-md lg:block">{l(selected.name)}</div>}
     </div>
