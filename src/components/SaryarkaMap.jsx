@@ -21,6 +21,8 @@ const COORDINATES = {
   kokshetau: [53.283, 69.383], burabay: [53.083, 70.314], shalkar: [53.183, 70.287],
   korgalzhyn: [50.425, 69.25], bayanaul: [50.793, 75.702], zhasybay: [50.781, 75.62],
   karkaraly: [49.412, 75.474], shaitankol: [49.399, 75.45], begazy: [48.548, 74.907], ulytau: [48.675, 66.916],
+  zerendi: [52.906, 69.156], kobeituz: [51.7425, 73.5475], alzhir: [51.0782, 70.9723], "mashhur-jusup": [51.0145, 75.648],
+  astana: [51.1694, 71.4491], karlag: [49.6778, 72.6819], shunak: [47.2083, 72.7597],
 };
 
 // Additional landmarks shown on the map. They are kept separate from the long-form place cards.
@@ -83,7 +85,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
   const [selectedId, setSelectedId] = useState(initialSelected);
   const [fullscreen, setFullscreen] = useState(false);
   const mapShellRef = useRef(null);
-  const mapLocations = useMemo(() => [...places, ...MAP_LANDMARKS], []);
+  const mapLocations = useMemo(() => places, []);
 
   useEffect(() => {
     const updateFullscreen = () => setFullscreen(document.fullscreenElement === mapShellRef.current);
@@ -117,10 +119,9 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
           const type = typeFor(place);
           const color = FILTERS.find((item) => item.id === type)?.color || "#39844d";
           const position = COORDINATES[place.id] || place.coords;
-          const isLandmark = MAP_LANDMARKS.some((item) => item.id === place.id);
           return <Marker key={place.id} position={position} icon={pinIcon(type, color)} eventHandlers={{ click: () => setSelectedId(place.id) }}>
             <Tooltip direction="top" offset={[0, -20]} opacity={0.96}>{l(place.name)}</Tooltip>
-            <Popup>{isLandmark ? <div className="sq-popup"><p className="text-xs font-bold text-[#4f7a3d]">{l(place.type)}</p><h3 className="mt-1 text-lg font-bold text-[#232b1e]">{l(place.name)}</h3></div> : <div className="sq-popup"><Photo id={place.id} alt="" className="h-24 w-full rounded-lg" /><p className="mt-3 text-xs font-bold text-[#4f7a3d]">{l(place.type)}</p><h3 className="mt-1 text-lg font-bold text-[#232b1e]">{l(place.name)}</h3><p className="mt-1 text-xs font-semibold text-[#4c5642]">{l(place.region)}</p><p className="mt-2 text-sm leading-relaxed text-[#4c5642]">{l(place.short)}</p><Link to={`/places/${place.id}`} className="mt-3 inline-block text-sm font-bold text-[#1f5765]">{t("read_more")}</Link></div>}</Popup>
+            <Popup><div className="sq-popup"><Photo id={place.id} alt="" className="h-24 w-full rounded-lg" /><p className="mt-3 text-xs font-bold text-[#4f7a3d]">{l(place.type)}</p><h3 className="mt-1 text-lg font-bold text-[#232b1e]">{l(place.name)}</h3><p className="mt-1 text-xs font-semibold text-[#4c5642]">{l(place.region)}</p><p className="mt-2 text-sm leading-relaxed text-[#4c5642]">{l(place.short)}</p><Link to={`/places/${place.id}`} className="mt-3 inline-block text-sm font-bold text-[#1f5765]">{t("read_more")}</Link></div></Popup>
           </Marker>;
         })}
       </MapContainer>
