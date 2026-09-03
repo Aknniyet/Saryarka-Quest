@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useLocation } from "react-router-dom";
 import { useLang } from "../context/LangContext";
 import { getPlace } from "../data/places";
 import Illustration from "../components/Illustration";
@@ -6,15 +6,17 @@ import Photo from "../components/Photo";
 
 export default function PlaceDetail() {
   const { id } = useParams();
+  const location = useLocation();
   const { t, l } = useLang();
   const place = getPlace(id);
 
   if (!place) return <Navigate to="/places" replace />;
+  const cameFromMap = location.state?.from === "map";
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10 lg:px-8">
-      <Link to="/map" className="mb-6 inline-block text-sm font-medium text-[var(--color-steppe-deep)] hover:underline">
-        {t("back_to_map")}
+      <Link to={cameFromMap ? "/map" : "/places"} className="mb-6 inline-block text-sm font-medium text-[var(--color-steppe-deep)] hover:underline">
+        {cameFromMap ? t("back_to_map") : t("back_to_list")}
       </Link>
 
       <div className="overflow-hidden rounded-3xl border border-[var(--color-line)] shadow-sm">

@@ -21,13 +21,15 @@ export default function Nav() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-line)] bg-[var(--color-cream)]/95 shadow-[0_2px_14px_rgba(35,43,30,.06)] backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8">
         <NavLink to="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
-          <img
-            src="/saryarka-quest-logo.png"
-            alt="Saryarka Quest"
-            className="h-11 w-11 rounded-full object-cover shadow-sm"
-          />
+          <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full shadow-sm">
+            <img
+              src="/geosaryarqa-logo.png"
+              alt="GeoSaryArqa"
+              className="h-full w-full scale-[1.25] object-cover"
+            />
+          </div>
           <span className="font-display text-lg font-semibold tracking-tight text-[var(--color-steppe-deep)]">
-            SARYARKA QUEST
+            GEOSARYARQA
           </span>
         </NavLink>
 

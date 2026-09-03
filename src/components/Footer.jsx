@@ -7,13 +7,15 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div className="flex items-center gap-2">
-            <img
-              src="/saryarka-quest-logo.png"
-              alt="Saryarka Quest"
-              className="h-10 w-10 rounded-full object-cover shadow-sm"
-            />
-            
-            <span className="font-display text-base font-semibold text-[var(--color-steppe-deep)]">SARYARKA QUEST</span>
+            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-sm">
+              <img
+                src="/geosaryarqa-logo.png"
+                alt="GeoSaryArqa"
+                className="h-full w-full scale-[1.25] object-cover"
+              />
+            </div>
+
+            <span className="font-display text-base font-semibold text-[var(--color-steppe-deep)]">GEOSARYARQA</span>
           </div>
           <p className="text-sm text-[var(--color-ink-soft)]">{t("footer_tagline")}</p>
         </div>

@@ -12,9 +12,9 @@ const VIDEO_DURATION_MS = 5000;
 const STORAGE_KEY = "sq_quest_progress_v2";
 
 const certificateCopy = {
-  kz: { title: "СЕРТИФИКАТ", awarded: "Осы сертификат", completed: "Saryarka Quest білім беру маршрутын сәтті аяқтағаны үшін беріледі", download: "Сертификатты жүктеу", date: "Берілген күні" },
-  ru: { title: "СЕРТИФИКАТ", awarded: "Настоящий сертификат выдан", completed: "за успешное прохождение образовательного маршрута Saryarka Quest", download: "Скачать сертификат", date: "Дата выдачи" },
-  en: { title: "CERTIFICATE", awarded: "This certificate is awarded to", completed: "for successfully completing the Saryarka Quest learning route", download: "Download certificate", date: "Issued" },
+  kz: { title: "СЕРТИФИКАТ", awarded: "Осы сертификат", completed: "GeoSaryArqa білім беру маршрутын сәтті аяқтағаны үшін беріледі", download: "Сертификатты жүктеу", date: "Берілген күні" },
+  ru: { title: "СЕРТИФИКАТ", awarded: "Настоящий сертификат выдан", completed: "за успешное прохождение образовательного маршрута GeoSaryArqa", download: "Скачать сертификат", date: "Дата выдачи" },
+  en: { title: "CERTIFICATE", awarded: "This certificate is awarded to", completed: "for successfully completing the GeoSaryArqa learning route", download: "Download certificate", date: "Issued" },
 };
 
 function QuestIcon({ type, className = "" }) {
@@ -44,53 +44,45 @@ function readSavedProgress() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); } catch { return null; }
 }
 
-function svgEscape(value) {
-  return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[char]);
+const certificateArtwork = "/certificate-side-illustration.png";
+
+function loadCertificateImage(src) {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => resolve(null);
+    image.src = src;
+  });
 }
 
-function CertificatePreview({ certName, rank, score, total, onDownload, onRestart }) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const image = new Image();
-    image.src = "/certificate-template.png";
-    image.onload = () => {
-      const width = 1542;
-      const height = Math.round((image.naturalHeight / image.naturalWidth) * width);
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(image, 0, 0, width, height);
-      const scale = width / image.naturalWidth;
-      const y = 368 * scale;
-      ctx.fillStyle = "rgba(255,255,255,.96)";
-      ctx.fillRect(width * .28, y - 35, width * .44, 70);
-      ctx.strokeStyle = "#302274";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(width * .29, y + 28);
-      ctx.lineTo(width * .71, y + 28);
-      ctx.stroke();
-      ctx.fillStyle = "#302274";
-      ctx.textAlign = "center";
-      ctx.font = "700 42px Georgia, serif";
-      ctx.fillText(certName.trim(), width / 2, y + 8, width * .40);
-      ctx.font = "600 25px Arial, sans-serif";
-      ctx.fillStyle = "#4d4388";
-      ctx.fillText(`${score} / ${total} · ${rank}`, width / 2, y + 72, width * .52);
-    };
-  }, [certName, rank, score, total]);
-
-  return <div className="mt-7 text-center">
-    <canvas id="certificate-personal" ref={canvasRef} className="mx-auto w-full max-w-3xl rounded-xl shadow-md" />
-    <div className="mt-6 flex flex-wrap justify-center gap-3 print:hidden">
-      <button onClick={onDownload} className="rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-semibold text-white">Скачать сертификат</button>
-      <button onClick={() => window.print()} className="rounded-full bg-[var(--color-steppe)] px-6 py-3 text-sm font-semibold text-white">Печать / PDF</button>
-      <button onClick={onRestart} className="rounded-full bg-[var(--color-cream-dim)] px-6 py-3 text-sm font-semibold">Пройти ещё раз</button>
-    </div>
-    {stage === "certificate" && certCreated && <CertificatePreview certName={certName} rank={rank} score={score} total={TOTAL_POINTS} onDownload={downloadCertificate} onRestart={restartQuest} />}
-  </div>;
+function pdfFromJpeg(jpegDataUrl, width, height) {
+  const jpegBytes = Uint8Array.from(atob(jpegDataUrl.split(",")[1]), (char) => char.charCodeAt(0));
+  const encoder = new TextEncoder();
+  const pageWidth = 841.89;
+  const pageHeight = 595.28;
+  const content = encoder.encode(`q\n${pageWidth} 0 0 ${pageHeight} 0 0 cm\n/Im0 Do\nQ\n`);
+  const chunks = [];
+  const offsets = [0];
+  let offset = 0;
+  const add = (part) => { const bytes = typeof part === "string" ? encoder.encode(part) : part; chunks.push(bytes); offset += bytes.length; };
+  add("%PDF-1.4\n%âãÏÓ\n");
+  const object = (number, value) => { offsets[number] = offset; add(`${number} 0 obj\n${value}\nendobj\n`); };
+  object(1, "<< /Type /Catalog /Pages 2 0 R >>");
+  object(2, "<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+  object(3, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>`);
+  offsets[4] = offset;
+  add(`4 0 obj\n<< /Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegBytes.length} >>\nstream\n`);
+  add(jpegBytes);
+  add("\nendstream\nendobj\n");
+  offsets[5] = offset;
+  add(`5 0 obj\n<< /Length ${content.length} >>\nstream\n`);
+  add(content);
+  add("endstream\nendobj\n");
+  const xref = offset;
+  add("xref\n0 6\n0000000000 65535 f \n");
+  for (let index = 1; index <= 5; index += 1) add(`${String(offsets[index]).padStart(10, "0")} 00000 n \n`);
+  add(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
+  return new Blob(chunks, { type: "application/pdf" });
 }
 
 export default function Quest() {
@@ -142,35 +134,39 @@ export default function Quest() {
     setLastCorrect(correct); if (correct) setScore((value) => value + POINTS_PER_QUESTION); setResults((value) => [...value, correct]); setStage("feedback");
   }
   function nextStep() { if (stepIndex + 1 < questSteps.length) { setStepIndex((value) => value + 1); resetStep(); setStage("video"); } else setStage("final"); }
-  function downloadCertificate() {
-    const canvas = document.getElementById("certificate-personal");
-    if (canvas) {
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
-        const downloadLink = document.createElement("a");
-        downloadLink.href = url;
-        downloadLink.download = `Saryarka-Quest-${certName.trim().replace(/\s+/g, "-") || "certificate"}.png`;
-        downloadLink.click();
-        URL.revokeObjectURL(url);
-      }, "image/png");
-      return;
-    }
-    const downloadLink = document.createElement("a");
-    downloadLink.href = "/certificate-template.png";
-    downloadLink.download = "Saryarka-Quest-certificate-template.png";
-    downloadLink.click();
-    return;
+  async function downloadCertificate() {
     const date = new Date().toLocaleDateString(lang === "kz" ? "kk-KZ" : lang === "ru" ? "ru-RU" : "en-GB");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1131" viewBox="0 0 1600 1131"><rect width="1600" height="1131" fill="#fffdf7"/><rect x="35" y="35" width="1530" height="1061" rx="28" fill="none" stroke="#c08a44" stroke-width="8"/><rect x="58" y="58" width="1484" height="1015" rx="20" fill="none" stroke="#34532a" stroke-width="2"/><path d="M70 850 C300 690 420 1010 700 850 S1100 670 1530 860" fill="none" stroke="#d6a339" stroke-width="7" opacity=".45"/><circle cx="800" cy="175" r="62" fill="#34532a"/><path d="M755 196 800 132l45 64Z" fill="#fffdf7"/><text x="800" y="270" text-anchor="middle" font-family="Georgia,serif" font-size="31" font-weight="700" fill="#34532a" letter-spacing="6">SARYARKA QUEST</text><text x="800" y="390" text-anchor="middle" font-family="Georgia,serif" font-size="78" font-weight="700" fill="#232b1e">${svgEscape(copy.title)}</text><path d="M670 430h260" stroke="#d6a339" stroke-width="5"/><text x="800" y="510" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#4c5642">${svgEscape(copy.awarded)}</text><text x="800" y="590" text-anchor="middle" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#34532a">${svgEscape(certName)}</text><text x="800" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" fill="#4c5642">${svgEscape(copy.completed)}</text><text x="800" y="750" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#4c5642">${score} / ${TOTAL_POINTS} · ${svgEscape(rank)}</text><text x="800" y="1000" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#4c5642">${svgEscape(copy.date)}: ${date}</text></svg>`;
-    const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
-    const link = document.createElement("a"); link.href = url; link.download = `Saryarka-Quest-${certName.trim().replace(/\s+/g, "-") || "certificate"}.svg`; link.click(); URL.revokeObjectURL(url);
+    await document.fonts?.ready;
+    const artwork = await loadCertificateImage(certificateArtwork);
+    const canvas = document.createElement("canvas");
+    canvas.width = 1600; canvas.height = 1131;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#fffdf7"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#c08a44"; ctx.lineWidth = 9; ctx.strokeRect(38, 38, 1524, 1055);
+    ctx.strokeStyle = "#34532a"; ctx.lineWidth = 2; ctx.strokeRect(62, 62, 1476, 1007);
+    if (artwork) ctx.drawImage(artwork, 55, 115, 1490, 838);
+    ctx.save(); ctx.globalAlpha = 0.45; ctx.strokeStyle = "#d6a339"; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(70, 870); ctx.bezierCurveTo(300, 700, 420, 1020, 700, 860); ctx.bezierCurveTo(1000, 690, 1220, 760, 1530, 870); ctx.stroke(); ctx.restore();
+    ctx.fillStyle = "#34532a"; ctx.beginPath(); ctx.arc(800, 175, 62, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#fffdf7"; ctx.beginPath(); ctx.moveTo(755, 196); ctx.lineTo(800, 132); ctx.lineTo(845, 196); ctx.closePath(); ctx.fill();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#34532a"; ctx.font = "700 31px 'Noto Serif', Georgia, serif"; ctx.letterSpacing = "6px"; ctx.fillText("GEOSARYARQA", 800, 270); ctx.letterSpacing = "0px";
+    ctx.fillStyle = "#232b1e"; ctx.font = "700 78px 'Noto Serif', Georgia, serif"; ctx.fillText(copy.title, 800, 390);
+    ctx.strokeStyle = "#d6a339"; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(670, 430); ctx.lineTo(930, 430); ctx.stroke();
+    ctx.fillStyle = "#4c5642"; ctx.font = "28px 'Noto Sans', Arial, sans-serif"; ctx.fillText(copy.awarded, 800, 510);
+    ctx.fillStyle = "#34532a"; ctx.font = "700 56px 'Noto Serif', Georgia, serif"; ctx.fillText(certName, 800, 590);
+    ctx.fillStyle = "#4c5642"; ctx.font = "27px 'Noto Sans', Arial, sans-serif"; ctx.fillText(copy.completed, 800, 675);
+    ctx.fillStyle = "#7a5a12"; ctx.font = "700 25px 'Noto Sans', Arial, sans-serif"; ctx.fillText(`${score} / ${TOTAL_POINTS} · ${rank}`, 800, 750);
+    ctx.fillStyle = "#4c5642"; ctx.font = "22px 'Noto Sans', Arial, sans-serif"; ctx.fillText(`${copy.date}: ${date}`, 800, 1000);
+    const pdf = pdfFromJpeg(canvas.toDataURL("image/jpeg", 0.94), canvas.width, canvas.height);
+    const url = URL.createObjectURL(pdf);
+    const link = document.createElement("a"); link.href = url; link.download = `GeoSaryArqa-${certName.trim().replace(/\s+/g, "-") || "certificate"}.pdf`; link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 500);
   }
   const routeStatus = useMemo(() => questSteps.map((_, index) => index < results.length ? "done" : index === stepIndex && !["final", "certificate"].includes(stage) ? "current" : "todo"), [results, stepIndex, stage]);
 
   return <div className="mx-auto max-w-4xl px-5 py-10 lg:px-8">
     {stage === "intro" && <section className="quest-topography animate-fade-up overflow-hidden rounded-[32px] border border-white/10 p-7 text-white shadow-xl sm:p-12">
-      <div className="mx-auto max-w-2xl text-center"><div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-white/20 bg-white/10"><QuestIcon type="compass" className="h-8 w-8 text-[var(--color-gold-light)]" /></div><p className="mt-5 font-mono text-xs font-semibold tracking-[.24em] text-[var(--color-gold-light)]">FIELD JOURNAL · SARYARKA</p><h1 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Saryarka Quest</h1><p className="mx-auto mt-4 max-w-lg text-white/75">{t("quest_hero_subtitle")}</p></div>
+      <div className="mx-auto max-w-2xl text-center"><div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-white/20 bg-white/10"><QuestIcon type="compass" className="h-8 w-8 text-[var(--color-gold-light)]" /></div><p className="mt-5 font-mono text-xs font-semibold tracking-[.24em] text-[var(--color-gold-light)]">FIELD JOURNAL · SARYARKA</p><h1 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">GeoSaryArqa</h1><p className="mx-auto mt-4 max-w-lg text-white/75">{t("quest_hero_subtitle")}</p></div>
       <div className="mt-9 grid gap-3 sm:grid-cols-4">{[["route", "quest_stat_tasks"], ["film", "quest_stat_video"], ["medal", "quest_stat_points"], ["leaf", "quest_stat_facts"]].map(([icon, label]) => <div key={label} className="rounded-2xl border border-white/10 bg-white/[.08] p-4"><QuestIcon type={icon} className="h-5 w-5 text-[var(--color-gold-light)]" /><p className="mt-4 text-sm font-medium">{t(label)}</p></div>)}</div>
       <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-6 sm:flex-row"><p className="max-w-xl text-sm leading-relaxed text-white/70">{t("quest_rule1")} · {t("quest_rule2")} · {t("quest_rule3")}</p><button onClick={beginQuest} className="rounded-full bg-[var(--color-gold)] px-7 py-3 text-sm font-bold text-[var(--color-ink)] shadow-md transition hover:-translate-y-0.5">{t("quest_start")}</button></div>
     </section>}
@@ -185,6 +181,6 @@ export default function Quest() {
 
     {stage === "final" && <section className="quest-topography animate-fade-up rounded-[32px] p-8 text-center text-white shadow-xl sm:p-12"><div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-white/20 bg-white/10"><QuestIcon type="medal" className="h-8 w-8 text-[var(--color-gold-light)]" /></div><h1 className="mt-5 font-display text-4xl font-semibold">{t("quest_finished")}</h1><p className="mt-5 text-sm text-white/70">{t("your_result")}</p><p className="font-display text-5xl font-semibold text-[var(--color-gold-light)]">{score} / {TOTAL_POINTS}</p><div className="mx-auto mt-5 w-fit rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-semibold">{rank}</div><div className="mt-8 flex flex-wrap justify-center gap-3"><button onClick={() => setStage("certificate")} className="rounded-full bg-[var(--color-gold)] px-6 py-3 text-sm font-bold text-[var(--color-ink)]">{t("get_certificate")}</button><button onClick={restartQuest} className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold">{t("try_again")}</button><Link to="/map" className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold">{t("back_to_map_btn")}</Link></div></section>}
 
-    {stage === "certificate" && <section className="animate-fade-up">{!certCreated ? <div className="rounded-[28px] border border-[var(--color-line)] bg-white p-8 text-center shadow-sm"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[var(--color-steppe-mist)] text-[var(--color-steppe-deep)]"><QuestIcon type="medal" className="h-7 w-7" /></div><h1 className="mt-5 font-display text-2xl font-semibold">{t("cert_enter_name")}</h1><input value={certName} onChange={(event) => setCertName(event.target.value)} placeholder={t("cert_name_placeholder")} className="mx-auto mt-5 block w-full max-w-sm rounded-xl border border-[var(--color-line)] px-4 py-3 text-center outline-none focus:border-[var(--color-steppe)]"/><button onClick={() => certName.trim() && setCertCreated(true)} disabled={!certName.trim()} className="mt-5 rounded-full bg-[var(--color-steppe)] px-6 py-3 text-sm font-semibold text-white disabled:opacity-40">{t("cert_create")}</button><p className="mt-4 text-xs text-[var(--color-ink-soft)]">KZ · RU · EN — language follows the site language.</p></div> : <div><div id="certificate-print" className="relative overflow-hidden rounded-[28px] border-4 border-double border-[var(--color-gold)] bg-[#fffdf7] px-6 py-10 text-center shadow-md sm:px-14"><img src="/saryarka-quest-logo.png" alt="Saryarka Quest" className="mx-auto h-16 w-16 rounded-full object-cover"/><p className="mt-4 font-mono text-[11px] font-bold tracking-[.25em] text-[var(--color-steppe-deep)]">SARYARKA QUEST</p><h1 className="mt-5 font-display text-4xl font-bold tracking-wide text-[var(--color-ink)]">{copy.title}</h1><div className="mx-auto mt-4 h-1 w-20 bg-[var(--color-gold)]"/><p className="mt-7 text-sm text-[var(--color-ink-soft)]">{copy.awarded}</p><p className="mt-2 font-display text-3xl font-semibold text-[var(--color-steppe-deep)]">{certName}</p><p className="mx-auto mt-7 max-w-lg text-sm leading-relaxed text-[var(--color-ink-soft)]">{copy.completed}</p><div className="mx-auto mt-7 w-fit rounded-full bg-[var(--color-gold-light)] px-5 py-2 text-sm font-semibold text-[#7a5a12]">{score} / {TOTAL_POINTS} · {rank}</div><p className="mt-10 font-mono text-[11px] text-[var(--color-ink-soft)]">{copy.date}: {new Date().toLocaleDateString()}</p></div><div className="mt-6 flex flex-wrap justify-center gap-3 print:hidden"><button onClick={downloadCertificate} className="rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-semibold text-white">{copy.download} (SVG)</button><button onClick={() => window.print()} className="rounded-full bg-[var(--color-steppe)] px-6 py-3 text-sm font-semibold text-white">{t("cert_print")}</button><button onClick={restartQuest} className="rounded-full bg-[var(--color-cream-dim)] px-6 py-3 text-sm font-semibold">{t("try_again")}</button></div></div>}</section>}
+    {stage === "certificate" && <section className="animate-fade-up">{!certCreated ? <div className="rounded-[28px] border border-[var(--color-line)] bg-white p-8 text-center shadow-sm"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[var(--color-steppe-mist)] text-[var(--color-steppe-deep)]"><QuestIcon type="medal" className="h-7 w-7" /></div><h1 className="mt-5 font-display text-2xl font-semibold">{t("cert_enter_name")}</h1><input value={certName} onChange={(event) => setCertName(event.target.value)} placeholder={t("cert_name_placeholder")} className="mx-auto mt-5 block w-full max-w-sm rounded-xl border border-[var(--color-line)] px-4 py-3 text-center outline-none focus:border-[var(--color-steppe)]"/><button onClick={() => certName.trim() && setCertCreated(true)} disabled={!certName.trim()} className="mt-5 rounded-full bg-[var(--color-steppe)] px-6 py-3 text-sm font-semibold text-white disabled:opacity-40">{t("cert_create")}</button><p className="mt-4 text-xs text-[var(--color-ink-soft)]">KZ · RU · EN — language follows the site language.</p></div> : <div><div id="certificate-print" className="relative overflow-hidden rounded-[28px] border-4 border-double border-[var(--color-gold)] bg-[#fffdf7] px-6 py-10 text-center shadow-md sm:px-14"><img src={certificateArtwork} alt="Saryarka nature and explorer illustration" className="pointer-events-none absolute inset-0 h-full w-full object-fill"/><div className="relative z-10"><div className="mx-auto h-16 w-16 overflow-hidden rounded-full"><img src="/geosaryarqa-logo.png" alt="GeoSaryArqa" className="h-full w-full scale-[1.25] object-cover"/></div><p className="mt-4 font-mono text-[11px] font-bold tracking-[.25em] text-[var(--color-steppe-deep)]">GEOSARYARQA</p><h1 className="mt-5 font-display text-4xl font-bold tracking-wide text-[var(--color-ink)]">{copy.title}</h1><div className="mx-auto mt-4 h-1 w-20 bg-[var(--color-gold)]"/><p className="mt-7 text-sm text-[var(--color-ink-soft)]">{copy.awarded}</p><p className="mt-2 font-display text-3xl font-semibold text-[var(--color-steppe-deep)]">{certName}</p><p className="mx-auto mt-7 max-w-lg text-sm leading-relaxed text-[var(--color-ink-soft)]">{copy.completed}</p><div className="mx-auto mt-7 w-fit rounded-full bg-[var(--color-gold-light)] px-5 py-2 text-sm font-semibold text-[#7a5a12]">{score} / {TOTAL_POINTS} · {rank}</div><p className="mt-10 font-mono text-[11px] text-[var(--color-ink-soft)]">{copy.date}: {new Date().toLocaleDateString(lang === "kz" ? "kk-KZ" : lang === "ru" ? "ru-RU" : "en-GB")}</p></div></div><div className="mt-6 flex flex-wrap justify-center gap-3 print:hidden"><button onClick={downloadCertificate} className="rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-semibold text-white">{copy.download} (PDF)</button><button onClick={() => window.print()} className="rounded-full bg-[var(--color-steppe)] px-6 py-3 text-sm font-semibold text-white">{t("cert_print")}</button><button onClick={restartQuest} className="rounded-full bg-[var(--color-cream-dim)] px-6 py-3 text-sm font-semibold">{t("try_again")}</button></div></div>}</section>}
   </div>;
 }

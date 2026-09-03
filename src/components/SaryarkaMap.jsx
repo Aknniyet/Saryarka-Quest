@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapContainer, Marker, Popup, Polyline, TileLayer, Tooltip, useMap } from "react-leaflet";
+import { MapContainer, Marker, Polygon, Popup, TileLayer, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./SaryarkaMap.css";
@@ -25,6 +25,12 @@ const COORDINATES = {
   astana: [51.1694, 71.4491], karlag: [49.6778, 72.6819], shunak: [47.2083, 72.7597],
 };
 
+// Simplified visual outline of the Saryarka (Kazakh Uplands) region.
+const SARYARKA_OUTLINE = [
+  [53.7, 66.8], [53.8, 71.6], [53.1, 75.5], [51.7, 78.1], [49.8, 78.0],
+  [47.2, 75.6], [46.7, 72.4], [47.2, 68.1], [49.1, 65.2], [51.8, 65.0],
+];
+
 // Additional landmarks shown on the map. They are kept separate from the long-form place cards.
 const MAP_LANDMARKS = [
   { id: "zerendi", category: "nature", coords: [52.906, 69.156], name: { kz: "\u0417\u0435\u0440\u0435\u043d\u0434\u0456", ru: "\u0417\u0435\u0440\u0435\u043d\u0434\u0430", en: "Zerendi" }, type: { kz: "\u0422\u0430\u0431\u0438\u0493\u0438 \u043d\u044b\u0441\u0430\u043d", ru: "\u041f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u043e\u0431\u044a\u0435\u043a\u0442", en: "Natural site" } },
@@ -41,8 +47,12 @@ function typeFor(place) {
   return place.category;
 }
 
+function markerGlyph(type) {
+  return type === "lake" ? "∼" : type === "history" ? "◆" : type === "archaeology" ? "▯" : type === "quest" ? "★" : "●";
+}
+
 function pinIcon(type, color) {
-  const glyph = type === "lake" ? "&#8764;" : type === "history" ? "&#9670;" : type === "archaeology" ? "&#9646;" : type === "quest" ? "&#9733;" : "&#9679;";
+  const glyph = markerGlyph(type);
   return L.divIcon({
     className: "sq-map-icon",
     html: `<span class="sq-map-pin sq-map-pin--${type}" style="background:${color}">${glyph}</span>`,
@@ -81,7 +91,6 @@ function MapInteraction({ fullscreen }) {
 export default function SaryarkaMap({ initialSelected = null, height = "h-[570px] sm:h-[680px] lg:h-[780px]" }) {
   const { t, l } = useLang();
   const [filter, setFilter] = useState("all");
-  const [showRoute, setShowRoute] = useState(true);
   const [selectedId, setSelectedId] = useState(initialSelected);
   const [fullscreen, setFullscreen] = useState(false);
   const mapShellRef = useRef(null);
@@ -105,7 +114,6 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
     return mapLocations.filter((place) => place.category === filter);
   }, [filter, mapLocations]);
 
-  const route = places.filter((place) => place.hasQuest).map((place) => COORDINATES[place.id]);
   const selected = mapLocations.find((place) => place.id === selectedId);
 
   return (
@@ -114,27 +122,26 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
         <MapZoomControl />
         <MapInteraction fullscreen={fullscreen} />
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" attribution="Tiles &copy; Esri" />
-        {showRoute && <><Polyline positions={route} pathOptions={{ color: "#5a4b1f", weight: 7, opacity: 0.65 }} /><Polyline positions={route} pathOptions={{ color: "#f2c238", weight: 4, opacity: 1 }} /></>}
+        <Polygon positions={SARYARKA_OUTLINE} pathOptions={{ color: "#c83e3b", weight: 3, opacity: 0.95, dashArray: "10 10", fill: false }} interactive={false} />
         {visible.map((place) => {
           const type = typeFor(place);
           const color = FILTERS.find((item) => item.id === type)?.color || "#39844d";
           const position = COORDINATES[place.id] || place.coords;
           return <Marker key={place.id} position={position} icon={pinIcon(type, color)} eventHandlers={{ click: () => setSelectedId(place.id) }}>
             <Tooltip direction="top" offset={[0, -20]} opacity={0.96}>{l(place.name)}</Tooltip>
-            <Popup><div className="sq-popup"><Photo id={place.id} alt="" className="h-24 w-full rounded-lg" /><p className="mt-3 text-xs font-bold text-[#4f7a3d]">{l(place.type)}</p><h3 className="mt-1 text-lg font-bold text-[#232b1e]">{l(place.name)}</h3><p className="mt-1 text-xs font-semibold text-[#4c5642]">{l(place.region)}</p><p className="mt-2 text-sm leading-relaxed text-[#4c5642]">{l(place.short)}</p><Link to={`/places/${place.id}`} className="mt-3 inline-block text-sm font-bold text-[#1f5765]">{t("read_more")}</Link></div></Popup>
+            <Popup><div className="sq-popup"><Photo id={place.id} alt="" className="h-24 w-full rounded-lg" /><p className="mt-3 text-xs font-bold text-[#4f7a3d]">{l(place.type)}</p><h3 className="mt-1 text-lg font-bold text-[#232b1e]">{l(place.name)}</h3><p className="mt-1 text-xs font-semibold text-[#4c5642]">{l(place.region)}</p><p className="mt-2 text-sm leading-relaxed text-[#4c5642]">{l(place.short)}</p><Link to={`/places/${place.id}`} state={{ from: "map" }} className="mt-3 inline-block text-sm font-bold text-[#1f5765]">{t("read_more")}</Link></div></Popup>
           </Marker>;
         })}
       </MapContainer>
 
-      <div className="pointer-events-none absolute right-4 top-4 z-[401] max-w-[calc(100%-2rem)] rounded-2xl bg-[rgba(22,45,40,.93)] px-4 py-3 text-white shadow-xl backdrop-blur sm:right-5 sm:top-5 sm:max-w-md"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[var(--color-gold-light)]">Saryarka Quest</p><p className="mt-1 text-sm font-semibold sm:text-base">{t("map_subtitle")}</p></div>
+      <div className="pointer-events-none absolute right-4 top-4 z-[401] max-w-[calc(100%-2rem)] rounded-2xl bg-[rgba(22,45,40,.93)] px-4 py-3 text-white shadow-xl backdrop-blur sm:right-5 sm:top-5 sm:max-w-md"><p className="text-[10px] font-bold uppercase tracking-[.18em] text-[var(--color-gold-light)]">GeoSaryArqa</p><p className="mt-1 text-sm font-semibold sm:text-base">{t("map_subtitle")}</p></div>
 
       <aside className="absolute left-4 top-4 z-[401] hidden w-64 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur lg:block">
         <p className="text-sm font-bold text-[var(--color-ink)]">{t("legend_title")}</p>
         <div className="mt-3 space-y-1">
-          <button onClick={() => setFilter("all")} className={`sq-legend-button ${filter === "all" ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: FILTERS[0].color }} />{t("filter_all")}</button>
-          {FILTERS.slice(1).filter((item) => item.id !== "quest").map((item) => <button key={item.id} onClick={() => setFilter(filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: item.color }} />{t(item.legendKey)}</button>)}
+          <button onClick={() => setFilter("all")} className={`sq-legend-button ${filter === "all" ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: FILTERS[0].color }}>{markerGlyph("all")}</span>{t("filter_all")}</button>
+          {FILTERS.slice(1).filter((item) => item.id !== "quest").map((item) => <button key={item.id} onClick={() => setFilter(filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: item.color }}>{markerGlyph(item.id)}</span>{t(item.legendKey)}</button>)}
         </div>
-        <div className="mt-4 border-t border-[var(--color-line)] pt-3"><button onClick={() => setShowRoute((value) => !value)} className="pointer-events-auto flex w-full items-center justify-between text-left text-xs font-semibold text-[var(--color-ink)]"><span>{t("map_routes")}</span><span className={`relative h-5 w-9 rounded-full ${showRoute ? "bg-[var(--color-steppe)]" : "bg-[var(--color-line)]"}`}><span className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white transition-transform ${showRoute ? "translate-x-4" : ""}`} /></span></button></div>
       </aside>
 
       <button type="button" onClick={toggleFullscreen} className="sq-map-fullscreen-button" aria-label={fullscreen ? "Exit full screen" : "Open map in full screen"} title={fullscreen ? "Exit full screen" : "Full screen map"}>

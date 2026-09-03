@@ -14,7 +14,7 @@ export const t = {
   nav_about: { kz: "Жоба туралы", ru: "О проекте", en: "About" },
 
   // Hero
-  hero_title: { kz: "SARYARKA QUEST", ru: "SARYARKA QUEST", en: "SARYARKA QUEST" },
+  hero_title: { kz: "GEOSARYARQA", ru: "GEOSARYARQA", en: "GEOSARYARQA" },
   hero_line1: { kz: "Сарыарканы зерттеп біл.", ru: "Исследуй Сарыарку.", en: "Explore Saryarka." },
   hero_line2: { kz: "Тарихымен танысып,", ru: "Узнай её историю,", en: "Learn its history," },
   hero_line3: { kz: "табиғатын аш.", ru: "открой её природу.", en: "discover its nature." },
@@ -70,7 +70,7 @@ export const t = {
   pass_quest_place: { kz: "Осы орынның Quest-ін өту", ru: "Пройти Quest этого места", en: "Take this place's quest" },
 
   // Nature page
-  nature_title: { kz: "Сарыарка табиғаты", ru: "Природа Сарыарки", en: "Nature of Saryarka" },
+  nature_title: { kz: "Сарыарқа табиғаты", ru: "Природа Сарыарки", en: "Nature of Saryarka" },
   nature_subtitle: {
     kz: "Өлкеміздің бай өсімдіктер мен жануарлар әлемі",
     ru: "Богатый растительный и животный мир нашего края",
@@ -86,7 +86,7 @@ export const t = {
   conservation_status: { kz: "Қорғау мәртебесі", ru: "Статус охраны", en: "Conservation status" },
 
   // Quest intro
-  quest_hero_title: { kz: "SARYARKA QUEST", ru: "SARYARKA QUEST", en: "SARYARKA QUEST" },
+  quest_hero_title: { kz: "GEOSARYARQA", ru: "GEOSARYARQA", en: "GEOSARYARQA" },
   quest_hero_subtitle: {
     kz: "Сарыарка туралы білімдеріңді тексер",
     ru: "Проверь свои знания о Сарыарке",
@@ -154,7 +154,7 @@ export const t = {
   cert_back: { kz: "Артқа", ru: "Назад", en: "Back" },
 
   // About page
-  about_title: { kz: "Saryarka Quest", ru: "Saryarka Quest", en: "Saryarka Quest" },
+  about_title: { kz: "GeoSaryArqa", ru: "GeoSaryArqa", en: "GeoSaryArqa" },
   about_goal_title: { kz: "Жобаның мақсаты", ru: "Цель проекта", en: "Project goal" },
   about_goal_text: {
     kz: "Пайдаланушыларды Сарыарканың табиғи, тарихи және мәдени нысандарымен таныстыратын интерактивті ақпараттық-танымдық ресурс құру.",
@@ -174,9 +174,9 @@ export const t = {
   },
   about_project_title: { kz: "Жоба туралы", ru: "О проекте", en: "About the project" },
   about_project_text: {
-    kz: "«Saryarka Quest» — Сарыарка өңірін интерактивті карта, орындар каталогы және білім беру Quest-і арқылы зерттеуге арналған оқу жобасы. Жоба 11-сынып оқушысының зерттеу жұмысы ретінде жасалды.",
-    ru: "«Saryarka Quest» — учебный проект для исследования региона Сарыарка через интерактивную карту, каталог мест и образовательный Quest. Проект выполнен в рамках исследовательской работы ученика 11 класса.",
-    en: "“Saryarka Quest” is a school project for exploring the Saryarka region through an interactive map, a catalogue of places and an educational quest, created as an 11th-grade research project.",
+    kz: "«GeoSaryArqa» — Сарыарка өңірін интерактивті карта, орындар каталогы және білім беру Quest-і арқылы зерттеуге арналған оқу жобасы. Жоба 11-сынып оқушысының зерттеу жұмысы ретінде жасалды.",
+    ru: "«GeoSaryArqa» — учебный проект для исследования региона Сарыарка через интерактивную карту, каталог мест и образовательный Quest. Проект выполнен в рамках исследовательской работы ученика 11 класса.",
+    en: "“GeoSaryArqa” is a school project for exploring the Saryarka region through an interactive map, a catalogue of places and an educational quest, created as an 11th-grade research project.",
   },
   about_author_title: { kz: "Автор туралы", ru: "Об авторе", en: "About the author" },
   about_author_text: {
