@@ -7,9 +7,7 @@
 .sq-legend-button { display: flex; width: 100%; align-items: center; gap: 8px; border-radius: 10px; padding: 5px 6px; color: var(--color-ink-soft); font-size: 12px; font-weight: 600; text-align: left; transition: background-color .18s ease, color .18s ease; }
 .sq-legend-button:hover { background: var(--color-cream-dim); color: var(--color-ink); }
 .sq-legend-button--active { background: var(--color-steppe-mist); color: var(--color-steppe-deep); }
-.sq-legend-symbol { position: relative; display: flex; width: 24px; height: 24px; flex: 0 0 24px; align-items: center; justify-content: center; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
-.sq-legend-symbol::after { position: absolute; inset: 0; width: 7px; height: 7px; margin: auto; border-radius: 999px; background: white; content: ""; }
-.sq-legend-symbol--quest::after { width: auto; height: auto; color: white; font-size: 14px; line-height: 1; content: "\2605"; }
+.sq-legend-symbol { display: flex; width: 24px; height: 24px; flex: 0 0 24px; align-items: center; justify-content: center; border-radius: 999px; color: white; font-size: 14px; font-weight: 800; line-height: 1; box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
 .leaflet-popup-content-wrapper { border-radius: 16px; }
 .leaflet-popup-content { width: 235px !important; margin: 12px; }
 .sq-popup { font-family: var(--font-sans); }

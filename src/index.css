@@ -99,7 +99,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 button, a { -webkit-tap-highlight-color: transparent; }
 
-/* Replaced by the Saryarka Quest logo in the navigation brand. */
 header > div > a > span[aria-hidden="true"] { display: none; }
 footer span[aria-hidden="true"] { display: none; }
 
@@ -110,6 +109,7 @@ footer span[aria-hidden="true"] { display: none; }
 }
 
 .quest-route-line { background: var(--color-steppe); }
+
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(14px); }
@@ -155,27 +155,7 @@ footer span[aria-hidden="true"] { display: none; }
   #certificate-print, #certificate-print * {
     visibility: visible;
   }
-#certificate-print {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-}
-
-/* Certificate visual supplied by the project author. */
-#certificate-print {
-  height: clamp(290px, 58vw, 590px);
-  padding: 0 !important;
-  border: 0 !important;
-  background: #fff url("/certificate-template.png") center / contain no-repeat !important;
-}
-#certificate-print > * { visibility: hidden; }
-#certificate-print, #certificate-print + div { display: none; }
-@media print {
-  #certificate-print > * { visibility: hidden !important; }
-  #certificate-personal {
-    visibility: visible !important;
+  #certificate-print {
     position: absolute;
     left: 0;
     top: 0;
