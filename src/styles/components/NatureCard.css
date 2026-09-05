@@ -1,0 +1,7 @@
+@reference "../../index.css";
+
+.nature-card { @apply relative block h-72 overflow-hidden rounded-[1.75rem] bg-[var(--color-ink)] shadow-sm; }
+.nature-card__image { @apply h-full w-full transition-transform duration-700; }
+.nature-card:hover .nature-card__image { transform: scale(1.05); }
+.nature-card__caption { @apply absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent px-4 pb-4 pt-12; }
+.nature-card__title { @apply font-display text-lg font-semibold text-white; }

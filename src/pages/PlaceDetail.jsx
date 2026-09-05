@@ -3,6 +3,8 @@ import { useLang } from "../context/LangContext";
 import { getPlace } from "../data/places";
 import Illustration from "../components/Illustration";
 import Photo from "../components/Photo";
+import "../styles/pages/shared.css";
+import "../styles/pages/details.css";
 
 export default function PlaceDetail() {
   const { id } = useParams();
@@ -14,69 +16,69 @@ export default function PlaceDetail() {
   const cameFromMap = location.state?.from === "map";
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-10 lg:px-8">
-      <Link to={cameFromMap ? "/map" : "/places"} className="mb-6 inline-block text-sm font-medium text-[var(--color-steppe-deep)] hover:underline">
+    <div className="page-container page-container--wide">
+      <Link to={cameFromMap ? "/map" : "/places"} className="back-link">
         {cameFromMap ? t("back_to_map") : t("back_to_list")}
       </Link>
 
-      <div className="overflow-hidden rounded-3xl border border-[var(--color-line)] shadow-sm">
-        <Photo id={place.id} alt={l(place.name)} className="h-56 w-full sm:h-72" />
+      <div className="place-photo">
+        <Photo id={place.id} alt={l(place.name)} />
       </div>
 
-      <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
+      <div className="place-header">
         <div>
-          <h1 className="font-display text-3xl font-semibold text-[var(--color-ink)] sm:text-4xl">{l(place.name)}</h1>
-          <p className="mt-1 text-[var(--color-ink-soft)]">{l(place.type)}</p>
+          <h1 className="place-title">{l(place.name)}</h1>
+          <p className="place-type">{l(place.type)}</p>
         </div>
         {place.hasQuest && (
           <Link
             to="/quest"
-            className="rounded-full bg-[var(--color-steppe)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5"
+            className="place-quest-link"
           >
             {t("pass_quest_place")}
           </Link>
         )}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-6">
-          <p className="text-lg leading-relaxed text-[var(--color-ink-soft)]">{l(place.short)}</p>
+      <div className="place-layout">
+        <div className="place-content">
+          <p className="place-summary">{l(place.short)}</p>
 
           <div>
-            <h2 className="font-display text-xl font-semibold text-[var(--color-ink)]">{t("history_section")}</h2>
-            <p className="mt-2 leading-relaxed text-[var(--color-ink-soft)]">{l(place.history)}</p>
+            <h2 className="place-section__title">{t("history_section")}</h2>
+            <p className="place-section__text">{l(place.history)}</p>
           </div>
 
           <div>
-            <h2 className="font-display text-xl font-semibold text-[var(--color-ink)]">{t("nature_section")}</h2>
-            <p className="mt-2 leading-relaxed text-[var(--color-ink-soft)]">{l(place.nature)}</p>
+            <h2 className="place-section__title">{t("nature_section")}</h2>
+            <p className="place-section__text">{l(place.nature)}</p>
           </div>
 
           <div>
-            <h2 className="mb-3 font-display text-xl font-semibold text-[var(--color-ink)]">{t("photos")}</h2>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <h2 className="place-gallery-title">{t("photos")}</h2>
+            <div className="place-gallery">
               {[0, 1, 2, 3].map((i) => (
-                <Illustration key={i} seed={`${place.id}-${i}`} category={place.category} className="h-24 w-full rounded-xl" />
+                <Illustration key={i} seed={`${place.id}-${i}`} category={place.category} className="place-gallery-item" />
               ))}
             </div>
           </div>
         </div>
 
-        <aside className="space-y-4">
-          <div className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">{t("location")}</p>
-            <p className="mt-1 text-sm text-[var(--color-ink)]">📍 {l(place.region)}</p>
+        <aside className="place-sidebar">
+          <div className="info-card">
+            <p className="info-card__label">{t("location")}</p>
+            <p className="info-card__value">📍 {l(place.region)}</p>
           </div>
-          <div className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">{t("object_type")}</p>
-            <p className="mt-1 text-sm text-[var(--color-ink)]">{l(place.type)}</p>
+          <div className="info-card">
+            <p className="info-card__label">{t("object_type")}</p>
+            <p className="info-card__value">{l(place.type)}</p>
           </div>
-          <div className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-5">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">{t("facts")}</p>
-            <ul className="space-y-1.5 text-sm text-[var(--color-ink)]">
+          <div className="info-card">
+            <p className="mb-2 info-card__label">{t("facts")}</p>
+            <ul className="fact-list">
               {l(place.facts).map((f, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className="text-[var(--color-steppe)]">✦</span>
+                <li key={i} className="fact-list__item">
+                  <span className="fact-list__mark">✦</span>
                   <span>{f}</span>
                 </li>
               ))}

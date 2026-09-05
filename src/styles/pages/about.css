@@ -1,0 +1,10 @@
+@reference "../../index.css";
+
+.about-section { @apply mt-8; }
+.about-section__title { @apply font-display text-xl font-semibold text-[var(--color-steppe-deep)]; }
+.about-section__text { @apply mt-2 leading-relaxed text-[var(--color-ink-soft)]; }
+.about-section--card { @apply rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-6; }
+.about-section--author { @apply rounded-2xl border border-[var(--color-line)] bg-[var(--color-cream-dim)] p-6; }
+.about-task-list { @apply mt-3 space-y-2; }
+.about-task { @apply flex gap-2 text-[var(--color-ink-soft)]; }
+.about-task__mark { @apply text-[var(--color-steppe)]; }

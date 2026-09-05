@@ -1,0 +1,15 @@
+@reference "../../index.css";
+
+.page-container { @apply mx-auto max-w-7xl px-5 py-10 lg:px-8; }
+.page-container--narrow { @apply max-w-3xl; }
+.page-container--wide { @apply max-w-5xl; }
+.page-eyebrow { @apply font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-steppe)]; }
+.page-intro { @apply mb-6; }
+.page-description { @apply mt-2 text-[var(--color-ink-soft)]; }
+.back-link { @apply mb-6 inline-block text-sm font-medium text-[var(--color-steppe-deep)] hover:underline; }
+.info-card { @apply rounded-2xl border border-[var(--color-line)] bg-[var(--color-card)] p-5; }
+.info-card__label { @apply text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]; }
+.info-card__value { @apply mt-1 text-sm text-[var(--color-ink)]; }
+.fact-list { @apply space-y-1.5 text-sm text-[var(--color-ink)]; }
+.fact-list__item { @apply flex gap-2; }
+.fact-list__mark { @apply text-[var(--color-steppe)]; }

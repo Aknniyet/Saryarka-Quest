@@ -10,14 +10,15 @@ import Nature from "./pages/Nature";
 import NatureDetail from "./pages/NatureDetail";
 import Quest from "./pages/Quest";
 import About from "./pages/About";
+import "./styles/components/layout.css";
 
 export default function App() {
   return (
     <LangProvider>
       <BrowserRouter>
-        <div className="flex min-h-screen flex-col">
+        <div className="app-layout">
           <Nav />
-          <main className="flex-1">
+          <main className="app-main">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/map" element={<MapPage />} />

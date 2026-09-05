@@ -1,0 +1,13 @@
+@reference "../../index.css";
+
+.app-layout { @apply flex min-h-screen flex-col; }
+.app-main { @apply flex-1; }
+.site-footer { @apply border-t border-[var(--color-line)] bg-[var(--color-cream-dim)]; }
+.site-footer__content { @apply mx-auto max-w-7xl px-5 py-8 lg:px-8; }
+.site-footer__top { @apply flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center; }
+.site-footer__brand { @apply flex items-center gap-2; }
+.site-footer__logo { @apply h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-sm; }
+.site-footer__logo img { @apply h-full w-full scale-[1.25] object-cover; }
+.site-footer__name { @apply font-display text-base font-semibold text-[var(--color-steppe-deep)]; }
+.site-footer__tagline { @apply text-sm text-[var(--color-ink-soft)]; }
+.site-footer__rights { @apply mt-4 border-t border-[var(--color-line)] pt-4 text-xs text-[var(--color-ink-soft)]; }

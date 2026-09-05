@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapContainer, Marker, Polygon, Popup, TileLayer, Tooltip, useMap } from "react-leaflet";
+import { MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./SaryarkaMap.css";
@@ -25,10 +25,11 @@ const COORDINATES = {
   astana: [51.1694, 71.4491], karlag: [49.6778, 72.6819], shunak: [47.2083, 72.7597],
 };
 
-// Simplified visual outline of the Saryarka (Kazakh Uplands) region.
-const SARYARKA_OUTLINE = [
-  [53.7, 66.8], [53.8, 71.6], [53.1, 75.5], [51.7, 78.1], [49.8, 78.0],
-  [47.2, 75.6], [46.7, 72.4], [47.2, 68.1], [49.1, 65.2], [51.8, 65.0],
+// Порядок точек образовательного маршрута с запада на восток.
+const ROUTE_IDS = [
+  "ulytau", "shunak", "karlag", "karkaraly", "shaitankol", "begazy",
+  "alzhir", "astana", "korgalzhyn", "burabay", "shalkar", "kokshetau",
+  "zerendi", "bayanaul", "zhasybay", "kobeituz", "mashhur-jusup",
 ];
 
 // Additional landmarks shown on the map. They are kept separate from the long-form place cards.
@@ -115,6 +116,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
   }, [filter, mapLocations]);
 
   const selected = mapLocations.find((place) => place.id === selectedId);
+  const routePositions = ROUTE_IDS.map((id) => COORDINATES[id]).filter(Boolean);
 
   return (
     <div ref={mapShellRef} className={`sq-map-shell relative isolate z-0 overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#d7ddd0] shadow-[0_18px_50px_rgba(31,49,34,.16)] ${height}`}>
@@ -122,7 +124,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
         <MapZoomControl />
         <MapInteraction fullscreen={fullscreen} />
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" attribution="Tiles &copy; Esri" />
-        <Polygon positions={SARYARKA_OUTLINE} pathOptions={{ color: "#c83e3b", weight: 3, opacity: 0.95, dashArray: "10 10", fill: false }} interactive={false} />
+        <Polyline positions={routePositions} pathOptions={{ color: "#d6a339", weight: 4, opacity: 0.85, dashArray: "9 9" }} interactive={false} />
         {visible.map((place) => {
           const type = typeFor(place);
           const color = FILTERS.find((item) => item.id === type)?.color || "#39844d";

@@ -1,0 +1,12 @@
+@reference "../../index.css";
+
+.nature-tabs { @apply mb-8 inline-flex rounded-full border border-[var(--color-line)] bg-white p-1; }
+.nature-tab { @apply rounded-full px-5 py-2 text-sm font-semibold transition-colors text-[var(--color-ink-soft)]; }
+.nature-tab--active { @apply bg-[var(--color-steppe)] text-white; }
+.nature-feature { @apply mb-10 grid overflow-hidden rounded-[2rem] border border-[var(--color-line)] bg-[#f6f2e9] shadow-[0_18px_45px_rgba(49,67,45,0.09)] md:grid-cols-[minmax(0,1fr)_360px]; }
+.nature-feature__content { @apply flex flex-col justify-center px-7 py-9 sm:px-10; }
+.nature-feature__title { @apply font-display text-3xl font-bold text-[var(--color-ink)] sm:text-4xl; }
+.nature-feature__text { @apply mt-4 max-w-xl leading-7 text-[var(--color-ink-soft)]; }
+.nature-feature__image-wrap { @apply bg-[#253a2b] p-4 sm:p-5; }
+.nature-feature__image { @apply mx-auto aspect-[4/5] w-full rounded-[1.4rem] object-cover object-top; }
+.nature-grid { @apply grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4; }

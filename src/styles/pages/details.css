@@ -1,0 +1,26 @@
+@reference "../../index.css";
+
+.nature-detail-hero { @apply grid items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(280px,.8fr)]; }
+.nature-detail-copy { @apply order-2 md:order-1; }
+.nature-detail-kind { @apply text-xs font-semibold uppercase tracking-wide text-[var(--color-steppe-deep)]; }
+.nature-detail-title { @apply mt-1 font-display text-3xl font-semibold text-[var(--color-ink)]; }
+.nature-detail-summary { @apply mt-3 text-lg leading-relaxed text-[var(--color-ink-soft)]; }
+.nature-detail-photo { @apply order-1 w-fit max-w-full justify-self-center overflow-hidden rounded-3xl border border-[var(--color-line)] bg-[#edf0e8] shadow-sm md:order-2; }
+.nature-detail-photo img { @apply h-56 !w-auto max-w-full !object-contain sm:h-64; }
+.detail-info-grid { @apply mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2; }
+.detail-facts { @apply mt-6; }
+.place-photo { @apply overflow-hidden rounded-3xl border border-[var(--color-line)] shadow-sm; }
+.place-photo img { @apply h-56 w-full sm:h-72; }
+.place-header { @apply mt-6 flex flex-wrap items-start justify-between gap-4; }
+.place-title { @apply font-display text-3xl font-semibold text-[var(--color-ink)] sm:text-4xl; }
+.place-type { @apply mt-1 text-[var(--color-ink-soft)]; }
+.place-quest-link { @apply rounded-full bg-[var(--color-steppe)] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5; }
+.place-layout { @apply mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3; }
+.place-content { @apply space-y-6 lg:col-span-2; }
+.place-summary { @apply text-lg leading-relaxed text-[var(--color-ink-soft)]; }
+.place-section__title { @apply font-display text-xl font-semibold text-[var(--color-ink)]; }
+.place-section__text { @apply mt-2 leading-relaxed text-[var(--color-ink-soft)]; }
+.place-gallery-title { @apply mb-3 font-display text-xl font-semibold text-[var(--color-ink)]; }
+.place-gallery { @apply grid grid-cols-2 gap-3 sm:grid-cols-4; }
+.place-gallery-item { @apply h-24 w-full rounded-xl; }
+.place-sidebar { @apply space-y-4; }

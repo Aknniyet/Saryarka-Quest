@@ -1,0 +1,32 @@
+@reference "../../index.css";
+
+.home-hero { @apply overflow-hidden px-5 py-12 lg:px-8 lg:py-20; background-image: radial-gradient(circle at 18% 30%, rgba(79,122,61,.07) 0, rgba(79,122,61,0) 45%), radial-gradient(circle at 78% 65%, rgba(46,116,136,.08) 0, rgba(46,116,136,0) 40%), radial-gradient(circle at 50% 10%, rgba(192,138,68,.06) 0, rgba(192,138,68,0) 40%); }
+.home-hero__grid { @apply mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16; }
+.home-hero__copy { @apply relative z-10; }
+.home-hero__badge { @apply inline-flex items-center gap-2 rounded-full border border-[var(--color-steppe-light)] bg-white/80 px-4 py-2 font-mono text-[11px] font-bold tracking-[.16em] text-[var(--color-steppe-deep)] shadow-sm; }
+.home-hero__badge-dot { @apply h-2 w-2 rounded-full bg-[var(--color-gold)]; }
+.home-hero__title { @apply mt-6 font-display text-5xl font-semibold leading-[.96] tracking-tight text-[var(--color-steppe-deep)] sm:text-6xl; }
+.home-hero__text { @apply mt-5 max-w-xl text-lg leading-relaxed text-[var(--color-ink-soft)] sm:text-xl; }
+.home-actions { @apply mt-8 flex flex-wrap gap-3; }
+.home-button { @apply rounded-full px-6 py-3 text-sm font-bold shadow-sm transition hover:-translate-y-0.5; }
+.home-button--primary { @apply bg-[var(--color-steppe)] text-white shadow-md; }
+.home-button--secondary { @apply border border-[var(--color-line)] bg-white text-[var(--color-ink)]; }
+.home-hero__visual { @apply relative mx-auto w-full max-w-2xl; }
+.home-hero__glow { @apply absolute -inset-5 rounded-[3rem] bg-[var(--color-gold-light)]/40 blur-3xl; }
+.home-hero__image-frame { @apply relative overflow-hidden rounded-[2.25rem] border-[10px] border-white bg-white shadow-[0_24px_65px_rgba(52,83,42,.2)]; }
+.home-hero__image { @apply h-[340px] w-full object-cover sm:h-[440px]; }
+.home-section { @apply mx-auto max-w-7xl px-5 lg:px-8; }
+.home-section--map { @apply py-16 lg:py-20; }
+.home-section--nature { @apply pb-16 lg:pb-20; }
+.home-section--quest { @apply pb-20; }
+.home-section__heading { @apply mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between; }
+.home-section__title { @apply mt-2 font-display text-4xl font-semibold text-[var(--color-ink)]; }
+.home-section__description { @apply max-w-md text-sm leading-relaxed text-[var(--color-ink-soft)] sm:text-right; }
+.home-nature { @apply grid items-center gap-8 lg:grid-cols-[.72fr_1.28fr]; }
+.home-nature__title { @apply mt-5 font-display text-4xl font-semibold leading-tight tracking-tight text-[var(--color-ink)]; }
+.home-nature__link { @apply mt-7 inline-block text-base font-bold text-[var(--color-steppe)] hover:underline; }
+.home-nature__grid { @apply grid grid-cols-2 gap-4 sm:grid-cols-4; }
+.home-quest { @apply rounded-[2.5rem] px-6 py-14 text-center text-white shadow-[0_16px_35px_rgba(52,83,42,.16)] sm:px-12; background-image: linear-gradient(135deg, rgba(52,83,42,.96), rgba(35,43,30,.98)), radial-gradient(circle at 12% 10%, rgba(214,163,57,.24), transparent 28%), radial-gradient(circle at 85% 85%, rgba(46,116,136,.28), transparent 32%); }
+.home-quest__title { @apply mt-4 font-display text-4xl font-semibold sm:text-5xl; }
+.home-quest__text { @apply mx-auto mt-4 max-w-xl text-lg text-white/80; }
+.home-quest__button { @apply mt-8 inline-flex rounded-full bg-[var(--color-gold)] px-7 py-3 text-sm font-bold text-[var(--color-ink)] shadow-lg transition hover:-translate-y-0.5; }
