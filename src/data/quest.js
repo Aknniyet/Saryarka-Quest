@@ -121,6 +121,32 @@ export const questSteps = [
       en: "With its pine forests, cliffs and clear lakes, Burabay is often called the “Switzerland of Kazakhstan”.",
     },
   },
+  {
+    placeId: "burabay",
+    videoUrl: "https://drive.google.com/file/d/1_nl-ktJmWUgBcCORD3a3KX6cAGoAr1kX/preview",
+    videoLabel: {
+      ru: "Легенда о происхождении названия Бурабай",
+      kz: "Бурабай атауының шығуы туралы аңыз",
+      en: "The legend behind the name Burabay",
+    },
+    question: {
+      ru: "Какую пользу, согласно легенде о происхождении названия Бурабай, приносил людям бура?",
+      kz: "Бурабай атауының шығуына байланысты аңызда бура жануары халыққа қандай пайдасын тигізді?",
+      en: "According to the legend behind the name Burabay, how did the Bura animal help the people?",
+    },
+    type: "choice",
+    options: {
+      ru: ["Предупреждал об опасности и спасал людей", "Показывал дорогу к озеру", "Перевозил людей через горы", "Помогал собирать урожай"],
+      kz: ["Қауіп төнгенде белгі беріп, жұртты сақтандырды", "Көлге баратын жолды көрсетті", "Адамдарды таудан өткізді", "Егін жинауға көмектесті"],
+      en: ["It warned people of danger and kept them safe", "It showed the way to the lake", "It carried people across the mountains", "It helped harvest crops"],
+    },
+    correctIndex: 0,
+    explanation: {
+      ru: "Согласно легенде, бура предупреждал людей о грозящей опасности, подавая знак и помогая им спастись.",
+      kz: "Аңыз бойынша, бура қауіп төнгенде белгі беріп, халықты сақтандырып отырған.",
+      en: "According to the legend, the Bura gave people a sign when danger approached, warning them and helping keep them safe.",
+    },
+  },
 ];
 
 export function normalizeAnswer(str) {

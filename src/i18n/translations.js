@@ -92,7 +92,7 @@ export const t = {
     ru: "Проверь свои знания о Сарыарке",
     en: "Test your knowledge of Saryarka",
   },
-  quest_stat_tasks: { kz: "5 тапсырма", ru: "5 заданий", en: "5 tasks" },
+  quest_stat_tasks: { kz: "6 тапсырма", ru: "6 заданий", en: "6 tasks" },
   quest_stat_video: { kz: "Бейне", ru: "Видео", en: "Video" },
   quest_stat_points: { kz: "Баллдар", ru: "Баллы", en: "Points" },
   quest_stat_facts: { kz: "Қызықты деректер", ru: "Интересные факты", en: "Fun facts" },
