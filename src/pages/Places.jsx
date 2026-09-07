@@ -7,9 +7,8 @@ import "../styles/pages/places.css";
 
 const FILTERS = [
   { id: "all", key: "filter_all" },
-  { id: "nature", key: "filter_nature" },
-  { id: "history", key: "filter_history" },
-  { id: "archaeology", key: "filter_archaeology" },
+  { id: "nature", key: "filter_natural_landscape" },
+  { id: "history", key: "filter_historical_cultural" },
 ];
 
 export default function Places() {
@@ -33,7 +32,7 @@ export default function Places() {
         {FILTERS.map((f) => (
           <button
             key={f.id}
-            onClick={() => setFilter(f.id)}
+            onClick={() => setFilter(f.id === "all" ? "all" : filter === f.id ? "all" : f.id)}
             className={`place-filter ${
               filter === f.id
                 ? "place-filter--active"

@@ -3,7 +3,7 @@ import { useLang } from "../context/LangContext";
 import Photo from "./Photo";
 import "../styles/components/PlaceCard.css";
 
-const CATEGORY_KEY = { nature: "filter_nature", history: "filter_history", archaeology: "filter_archaeology" };
+const CATEGORY_KEY = { nature: "filter_natural_landscape", history: "filter_historical_cultural" };
 
 export default function PlaceCard({ place }) {
   const { t, l } = useLang();
@@ -12,7 +12,6 @@ export default function PlaceCard({ place }) {
       <div className="place-card__image-wrap">
         <Photo id={place.id} alt={l(place.name)} className="place-card__image" />
         <span className="place-card__badge">{t(CATEGORY_KEY[place.category])}</span>
-        {place.hasQuest && <span className="place-card__quest">✦ Quest</span>}
       </div>
       <div className="place-card__content">
         <h3 className="place-card__title">{l(place.name)}</h3>
