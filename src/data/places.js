@@ -1,4 +1,4 @@
-// category: "nature" | "history" | "archaeology"
+// category: "nature" (natural-landscape) | "history" (historical-cultural)
 // coords are percentage positions [x, y] on the illustrated map (0-100)
 export const places = [
   {
@@ -62,7 +62,7 @@ export const places = [
   {
     id: "karkaraly",
     name: { ru: "Каркаралы", kz: "Қарқаралы", en: "Karkaraly" },
-    category: "history",
+    category: "nature",
     hasQuest: true,
     coords: [58, 60],
     region: { ru: "Карагандинская область", kz: "Қарағанды облысы", en: "Karaganda region" },
@@ -207,7 +207,7 @@ export const places = [
   {
     id: "begazy",
     name: { ru: "Бегазы-Дандыбай", kz: "Бегазы-Дәндібай", en: "Begazy-Dandybai" },
-    category: "archaeology",
+    category: "history",
     hasQuest: false,
     coords: [66, 66],
     region: { ru: "Карагандинская область", kz: "Қарағанды облысы", en: "Karaganda region" },
@@ -340,7 +340,7 @@ export const places = [
     facts: { kz: ["Долинка ауылында орналасқан", "Бұрынғы әкімшілік ғимарат", "Қуғын-сүргін тарихын таныстырады"], ru: ["Расположен в Долинке", "Бывшее административное здание", "Рассказывает об истории репрессий"], en: ["Located in Dolinka", "A former administrative building", "Documents the history of repression"] },
   },
   {
-    id: "shunak", name: { kz: "Шұнақ метеорит кратері", ru: "Метеоритный кратер Шунак", en: "Shunak impact crater" }, category: "archaeology", hasQuest: false, coords: [0, 0],
+    id: "shunak", name: { kz: "Шұнақ метеорит кратері", ru: "Метеоритный кратер Шунак", en: "Shunak impact crater" }, category: "nature", hasQuest: false, coords: [0, 0],
     region: { kz: "Шет ауданы, Қарағанды облысы", ru: "Шетский район, Карагандинская область", en: "Shet district, Karaganda region" }, type: { kz: "Геологиялық нысан", ru: "Геологический объект", en: "Geological site" },
     short: { kz: "Қарағанды облысының оңтүстік-шығысындағы диаметрі шамамен 2,8–3,1 км болатын метеорит кратері.", ru: "Метеоритный кратер в юго-восточной части Карагандинской области диаметром около 2,8–3,1 км.", en: "An impact crater in southeastern Karaganda region, approximately 2.8–3.1 km across." },
     history: { kz: "Кратер миллиондаған жыл бұрын болған аспан денесінің соққысынан пайда болған деп саналады.", ru: "Считается, что кратер образовался после удара небесного тела миллионы лет назад.", en: "The crater is believed to have formed after a celestial impact millions of years ago." },
