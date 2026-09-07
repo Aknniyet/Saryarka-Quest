@@ -10,11 +10,8 @@ import Photo from "./Photo";
 
 const FILTERS = [
   { id: "all", key: "filter_all", color: "#4f7a3d" },
-  { id: "nature", key: "filter_nature", legendKey: "legend_nature", color: "#39844d" },
-  { id: "lake", key: "legend_lakes", legendKey: "legend_lakes", color: "#2789b5" },
-  { id: "history", key: "filter_history", legendKey: "legend_history", color: "#d47c24" },
-  { id: "archaeology", key: "filter_archaeology", legendKey: "legend_archaeology", color: "#7552a4" },
-  { id: "quest", key: "filter_quest", legendKey: "legend_quest", color: "#d6a339" },
+  { id: "nature", key: "filter_natural_landscape", color: "#39844d" },
+  { id: "history", key: "filter_historical_cultural", color: "#d47c24" },
 ];
 
 const COORDINATES = {
@@ -44,12 +41,11 @@ const MAP_LANDMARKS = [
 ];
 
 function typeFor(place) {
-  if (place.type?.en?.toLowerCase().includes("lake")) return "lake";
   return place.category;
 }
 
 function markerGlyph(type) {
-  return type === "lake" ? "∼" : type === "history" ? "◆" : type === "archaeology" ? "▯" : type === "quest" ? "★" : "●";
+  return type === "history" ? "◆" : "●";
 }
 
 function pinIcon(type, color) {
@@ -110,8 +106,6 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
 
   const visible = useMemo(() => {
     if (filter === "all") return mapLocations;
-    if (filter === "quest") return places.filter((place) => place.hasQuest);
-    if (filter === "lake") return mapLocations.filter((place) => typeFor(place) === "lake");
     return mapLocations.filter((place) => place.category === filter);
   }, [filter, mapLocations]);
 
@@ -141,8 +135,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[570px
       <aside className="absolute left-4 top-4 z-[401] hidden w-64 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur lg:block">
         <p className="text-sm font-bold text-[var(--color-ink)]">{t("legend_title")}</p>
         <div className="mt-3 space-y-1">
-          <button onClick={() => setFilter("all")} className={`sq-legend-button ${filter === "all" ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: FILTERS[0].color }}>{markerGlyph("all")}</span>{t("filter_all")}</button>
-          {FILTERS.slice(1).filter((item) => item.id !== "quest").map((item) => <button key={item.id} onClick={() => setFilter(filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: item.color }}>{markerGlyph(item.id)}</span>{t(item.legendKey)}</button>)}
+          {FILTERS.map((item) => <button key={item.id} onClick={() => setFilter(item.id === "all" ? "all" : filter === item.id ? "all" : item.id)} className={`sq-legend-button ${filter === item.id ? "sq-legend-button--active" : ""}`}><span className="sq-legend-symbol" style={{ backgroundColor: item.color }}>{markerGlyph(item.id)}</span>{t(item.key)}</button>)}
         </div>
       </aside>
 
