@@ -32,6 +32,8 @@ export const t = {
   filter_nature: { kz: "Табиғат", ru: "Природа", en: "Nature" },
   filter_history: { kz: "Тарих", ru: "История", en: "History" },
   filter_archaeology: { kz: "Археология", ru: "Археология", en: "Archaeology" },
+  filter_historical_cultural: { kz: "Тарихи-мәдени нысандар", ru: "Историко-культурные объекты", en: "Historical and cultural sites" },
+  filter_natural_landscape: { kz: "Табиғи-ландшафтық нысандар", ru: "Природно-ландшафтные объекты", en: "Natural and landscape sites" },
   filter_quest: { kz: "Quest", ru: "Quest", en: "Quest" },
   legend_title: { kz: "Шартты белгілер", ru: "Легенда", en: "Legend" },
   legend_nature: { kz: "Табиғат", ru: "Природа", en: "Nature" },
