@@ -7,11 +7,11 @@ export const LANGS = [
 export const t = {
   // Navigation
   nav_home: { kz: "Басты бет", ru: "Главная", en: "Home" },
-  nav_map: { kz: "Карта", ru: "Карта", en: "Map" },
-  nav_places: { kz: "Орындар", ru: "Места", en: "Places" },
-  nav_nature: { kz: "Табиғат", ru: "Природа", en: "Nature" },
-  nav_quest: { kz: "Quest", ru: "Quest", en: "Quest" },
-  nav_about: { kz: "Жоба туралы", ru: "О проекте", en: "About" },
+  nav_map: { kz: "Маршрут", ru: "Маршрут", en: "Route" },
+  nav_places: { kz: "Нысандар", ru: "Объекты", en: "Objects" },
+  nav_nature: { kz: "Биоалуантүрлілік", ru: "Биоразнообразие", en: "Biodiversity" },
+  nav_quest: { kz: "Өзіңді тексер", ru: "Проверь себя", en: "Check Yourself" },
+  nav_about: { kz: "Біз туралы", ru: "О проекте", en: "About Us" },
 
   // Hero
   hero_title: { kz: "GEOSARYARQA", ru: "GEOSARYARQA", en: "GEOSARYARQA" },
@@ -19,7 +19,7 @@ export const t = {
   hero_line2: { kz: "Тарихымен танысып,", ru: "Узнай её историю,", en: "Learn its history," },
   hero_line3: { kz: "табиғатын аш.", ru: "открой её природу.", en: "discover its nature." },
   hero_explore_map: { kz: "Картаны зерттеу", ru: "Исследовать карту", en: "Explore the map" },
-  hero_start_quest: { kz: "Quest бастау", ru: "Начать Quest", en: "Start the Quest" },
+  hero_start_quest: { kz: "Өзіңді тексер", ru: "Проверь себя", en: "Check Yourself" },
 
   // Map
   map_title: { kz: "Интерактивті карта", ru: "Интерактивная карта", en: "Interactive map" },
@@ -34,7 +34,6 @@ export const t = {
   filter_archaeology: { kz: "Археология", ru: "Археология", en: "Archaeology" },
   filter_historical_cultural: { kz: "Тарихи-мәдени нысандар", ru: "Историко-культурные объекты", en: "Historical and cultural sites" },
   filter_natural_landscape: { kz: "Табиғи-ландшафтық нысандар", ru: "Природно-ландшафтные объекты", en: "Natural and landscape sites" },
-  filter_quest: { kz: "Quest", ru: "Quest", en: "Quest" },
   legend_title: { kz: "Шартты белгілер", ru: "Легенда", en: "Legend" },
   legend_nature: { kz: "Табиғат", ru: "Природа", en: "Nature" },
   legend_lakes: { kz: "Көлдер", ru: "Озёра", en: "Lakes" },
@@ -176,9 +175,9 @@ export const t = {
   },
   about_project_title: { kz: "Жоба туралы", ru: "О проекте", en: "About the project" },
   about_project_text: {
-    kz: "«GeoSaryArqa» — Сарыарка өңірін интерактивті карта, орындар каталогы және білім беру Quest-і арқылы зерттеуге арналған оқу жобасы. Жоба 11-сынып оқушысының зерттеу жұмысы ретінде жасалды.",
-    ru: "«GeoSaryArqa» — учебный проект для исследования региона Сарыарка через интерактивную карту, каталог мест и образовательный Quest. Проект выполнен в рамках исследовательской работы ученика 11 класса.",
-    en: "“GeoSaryArqa” is a school project for exploring the Saryarka region through an interactive map, a catalogue of places and an educational quest, created as an 11th-grade research project.",
+    kz: "«GeoSaryArqa» — Сарыарка өңірін интерактивті карта, орындар каталогы және білім беру Quest-і арқылы зерттеуге арналған оқу жобасы.",
+    ru: "«GeoSaryArqa» — учебный проект для исследования региона Сарыарка через интерактивную карту, каталог мест и образовательный Quest.",
+    en: "“GeoSaryArqa” is a school project for exploring the Saryarka region through an interactive map, a catalogue of places and an educational quest.",
   },
   about_author_title: { kz: "Автор туралы", ru: "Об авторе", en: "About the author" },
   about_author_text: {
@@ -193,7 +192,7 @@ export const t = {
     ru: "Образовательный проект об исследовании Сарыарки",
     en: "An educational project for exploring Saryarka",
   },
-  footer_rights: { kz: "Оқу жобасы, 11-сынып", ru: "Учебный проект, 11 класс", en: "School project, grade 11" },
+  footer_rights: { kz: "Танымдық жоба", ru: "Познавательный проект", en: "Educational project" },
 
   // Misc
   score_short: { kz: "балл", ru: "баллов", en: "pts" },
