@@ -1,154 +1,34 @@
-// type: "choice" | "text"
+const L = (ru, kz, en) => ({ ru, kz, en });
+const choice = (kind, placeId, question, options, explanation) => ({ kind, placeId, question, type: "choice", options, correctIndex: 0, explanation });
+
+// Five existing video questions, followed by five tests.
 export const questSteps = [
-  {
-    placeId: "bayanaul",
-    videoLabel: {
-      ru: "Гранитные скалы и сосновые леса Баянаула",
-      kz: "Баянауылдың гранит жартастары мен қарағай ормандары",
-      en: "The granite cliffs and pine forests of Bayanaul",
-    },
-    question: {
-      ru: "Как называется одно из самых известных озёр национального парка Баянаул?",
-      kz: "Баянауыл ұлттық паркінің ең танымал көлдерінің бірі қалай аталады?",
-      en: "What is the name of one of the most famous lakes in Bayanaul National Park?",
-    },
-    type: "text",
-    acceptedAnswers: ["жасыбай", "озеро жасыбай", "жасыбай көлі", "жасыбай коли", "zhasybai", "zhasybai lake"],
-    correctDisplay: { ru: "Жасыбай", kz: "Жасыбай", en: "Zhasybai" },
-    explanation: {
-      ru: "Озеро Жасыбай названо в честь батыра, погибшего в этих местах. Это одно из самых живописных мест Баянаульского нацпарка.",
-      kz: "Жасыбай көлі осы жерде қаза тапқан батыр құрметіне аталған. Бұл Баянауыл ұлттық паркінің ең көрікті жерлерінің бірі.",
-      en: "Lake Zhasybai is named after a batyr who died in this area. It's one of the most scenic spots in Bayanaul National Park.",
-    },
-  },
-  {
-    placeId: "korgalzhyn",
-    videoLabel: {
-      ru: "Розовые фламинго Коргалжынского заповедника",
-      kz: "Қорғалжын қорығының қызғылт фламингосы",
-      en: "The greater flamingos of Korgalzhyn Reserve",
-    },
-    question: {
-      ru: "Какой природный объект особенно известен в Коргалжынском заповеднике?",
-      kz: "Қорғалжын қорығында қандай табиғи нысан ерекше танымал?",
-      en: "What natural feature is Korgalzhyn Reserve especially known for?",
-    },
-    type: "choice",
-    options: {
-      ru: ["Фламинго", "Верблюд", "Архар", "Медведь"],
-      kz: ["Фламинго", "Түйе", "Арқар", "Аю"],
-      en: ["Flamingo", "Camel", "Argali", "Bear"],
-    },
-    correctIndex: 0,
-    explanation: {
-      ru: "Коргалжынский заповедник — самая северная точка гнездования розовых фламинго в мире.",
-      kz: "Қорғалжын қорығы — әлемдегі қызғылт фламингоның ең солтүстіктегі ұя салу нүктесі.",
-      en: "Korgalzhyn Reserve is the world's northernmost nesting site of the greater flamingo.",
-    },
-  },
-  {
-    placeId: "karkaraly",
-    videoLabel: {
-      ru: "Сосновые леса на гранитных сопках Каркаралы",
-      kz: "Қарқаралының гранит адырларындағы қарағай орманы",
-      en: "Pine forest on the granite hills of Karkaraly",
-    },
-    question: {
-      ru: "Каркаралы часто называют «островом» посреди степи. Каким?",
-      kz: "Қарқаралыны дала ортасындағы «арал» деп жиі атайды. Қандай?",
-      en: "Karkaraly is often called an “island” in the middle of the steppe. What kind?",
-    },
-    type: "choice",
-    options: {
-      ru: ["Островом тайги", "Островом пустыни", "Островом песка", "Островом льда"],
-      kz: ["Тайга аралы", "Шөл аралы", "Құм аралы", "Мұз аралы"],
-      en: ["Island of taiga", "Island of desert", "Island of sand", "Island of ice"],
-    },
-    correctIndex: 0,
-    explanation: {
-      ru: "Хвойный лес на гранитных сопках Каркаралы настолько нехарактерен для степи, что этот массив называют «островом тайги в степи».",
-      kz: "Қарқаралының гранит адырларындағы қылқанды орман далаға тым тән емес, сондықтан бұл массив «даладағы тайга аралы» деп аталады.",
-      en: "The coniferous forest on Karkaraly's granite hills is so atypical for the steppe that the area is called a “taiga island in the steppe”.",
-    },
-  },
-  {
-    placeId: "ulytau",
-    videoLabel: {
-      ru: "Древние горы и мавзолеи Улытау",
-      kz: "Ұлытаудың көне таулары мен кесенелері",
-      en: "The ancient mountains and mausoleums of Ulytau",
-    },
-    question: {
-      ru: "Улытау считается духовным центром чего?",
-      kz: "Ұлытау неге рухани орталық саналады?",
-      en: "Ulytau is considered a spiritual centre of what?",
-    },
-    type: "choice",
-    options: {
-      ru: ["Казахской государственности", "Морской торговли", "Горнолыжного спорта", "Кинематографа"],
-      kz: ["Қазақ мемлекеттілігінің", "Теңіз саудасының", "Тау шаңғы спортының", "Кинематографияның"],
-      en: ["Kazakh statehood", "Maritime trade", "Alpine skiing", "Cinema"],
-    },
-    correctIndex: 0,
-    explanation: {
-      ru: "На Улытау расположены мавзолеи ханов и место, где, по преданию, был провозглашён Абылай хан — регион считается духовным центром казахской государственности.",
-      kz: "Ұлытауда хандардың кесенелері және аңыз бойынша Абылай хан жарияланған жер орналасқан — аймақ қазақ мемлекеттілігінің рухани орталығы саналады.",
-      en: "Ulytau holds the mausoleums of khans and the legendary site where Ablai Khan was proclaimed — the region is seen as a spiritual centre of Kazakh statehood.",
-    },
-  },
-  {
-    placeId: "burabay",
-    videoLabel: {
-      ru: "Озеро Боровое и скала Жумбактас",
-      kz: "Бурабай көлі мен Жұмбақтас жартасы",
-      en: "Lake Borovoye and the Zhumbaktas rock",
-    },
-    question: {
-      ru: "Как называют Бурабай за сходство пейзажей с горной страной в Европе?",
-      kz: "Бурабайды Еуропадағы таулы елмен ландшафты ұқсастығы үшін қалай атайды?",
-      en: "What is Burabay nicknamed for its resemblance to a mountainous European country?",
-    },
-    type: "choice",
-    options: {
-      ru: ["Казахстанская Швейцария", "Казахстанская Норвегия", "Казахстанские Альпы", "Казахстанская Исландия"],
-      kz: ["Қазақстан Швейцариясы", "Қазақстан Норвегиясы", "Қазақстан Альпісі", "Қазақстан Исландиясы"],
-      en: ["The Switzerland of Kazakhstan", "The Norway of Kazakhstan", "The Alps of Kazakhstan", "The Iceland of Kazakhstan"],
-    },
-    correctIndex: 0,
-    explanation: {
-      ru: "За сосновые леса, скалы и чистые озёра Бурабай нередко называют «казахстанской Швейцарией».",
-      kz: "Қарағай ормандары, жартастары мен таза көлдері үшін Бурабайды жиі «Қазақстан Швейцариясы» деп атайды.",
-      en: "With its pine forests, cliffs and clear lakes, Burabay is often called the “Switzerland of Kazakhstan”.",
-    },
-  },
-  {
-    placeId: "burabay",
-    videoUrl: "https://drive.google.com/file/d/1_nl-ktJmWUgBcCORD3a3KX6cAGoAr1kX/preview",
-    videoLabel: {
-      ru: "Легенда о происхождении названия Бурабай",
-      kz: "Бурабай атауының шығуы туралы аңыз",
-      en: "The legend behind the name Burabay",
-    },
-    question: {
-      ru: "Какую пользу, согласно легенде о происхождении названия Бурабай, приносил людям бура?",
-      kz: "Бурабай атауының шығуына байланысты аңызда бура жануары халыққа қандай пайдасын тигізді?",
-      en: "According to the legend behind the name Burabay, how did the Bura animal help the people?",
-    },
-    type: "choice",
-    options: {
-      ru: ["Предупреждал об опасности и спасал людей", "Показывал дорогу к озеру", "Перевозил людей через горы", "Помогал собирать урожай"],
-      kz: ["Қауіп төнгенде белгі беріп, жұртты сақтандырды", "Көлге баратын жолды көрсетті", "Адамдарды таудан өткізді", "Егін жинауға көмектесті"],
-      en: ["It warned people of danger and kept them safe", "It showed the way to the lake", "It carried people across the mountains", "It helped harvest crops"],
-    },
-    correctIndex: 0,
-    explanation: {
-      ru: "Согласно легенде, бура предупреждал людей о грозящей опасности, подавая знак и помогая им спастись.",
-      kz: "Аңыз бойынша, бура қауіп төнгенде белгі беріп, халықты сақтандырып отырған.",
-      en: "According to the legend, the Bura gave people a sign when danger approached, warning them and helping keep them safe.",
-    },
-  },
+  choice("video", "bayanaul", L("Как называется одно из самых известных озёр Баянаула?", "Баянауылдың ең танымал көлдерінің бірі қалай аталады?", "What is one of Bayanaul's best-known lakes called?"), L(["Жасыбай", "Тенгиз", "Балхаш", "Алаколь"], ["Жасыбай", "Теңіз", "Балқаш", "Алакөл"], ["Zhasybai", "Tengiz", "Balkhash", "Alakol"]), L("Озеро Жасыбай — одно из самых живописных мест Баянаульского нацпарка.", "Жасыбай көлі — Баянауыл ұлттық паркінің ең көрікті жерлерінің бірі.", "Lake Zhasybai is one of Bayanaul's most scenic places.")),
+  choice("video", "korgalzhyn", L("Какая птица особенно известна в Коргалжынском заповеднике?", "Қорғалжын қорығында қай құс ерекше танымал?", "Which bird is Korgalzhyn Reserve known for?"), L(["Фламинго", "Верблюд", "Архар", "Медведь"], ["Фламинго", "Түйе", "Арқар", "Аю"], ["Flamingo", "Camel", "Argali", "Bear"]), L("Это самая северная в мире точка гнездования розовых фламинго.", "Бұл — қызғылт фламингоның әлемдегі ең солтүстіктегі ұя салу орны.", "It is the world's northernmost flamingo nesting site.")),
+  choice("video", "karkaraly", L("Каким «островом» называют Каркаралы посреди степи?", "Қарқаралыны дала ортасындағы қандай «арал» деп атайды?", "What kind of “island” is Karkaraly called in the steppe?"), L(["Островом тайги", "Островом пустыни", "Островом песка", "Островом льда"], ["Тайга аралы", "Шөл аралы", "Құм аралы", "Мұз аралы"], ["Island of taiga", "Island of desert", "Island of sand", "Island of ice"]), L("Хвойный лес здесь называют «островом тайги в степи».", "Қылқанды орман бұл жерді «даладағы тайга аралына» айналдырады.", "Its coniferous forest makes it a taiga island in the steppe.")),
+  choice("video", "ulytau", L("Улытау считается духовным центром чего?", "Ұлытау ненің рухани орталығы саналады?", "Ulytau is the spiritual centre of what?"), L(["Казахской государственности", "Морской торговли", "Горнолыжного спорта", "Кинематографа"], ["Қазақ мемлекеттілігінің", "Теңіз саудасының", "Тау шаңғы спортының", "Кинематографияның"], ["Kazakh statehood", "Maritime trade", "Alpine skiing", "Cinema"]), L("Улытау — духовный центр казахской государственности.", "Ұлытау — қазақ мемлекеттілігінің рухани орталығы.", "Ulytau is a spiritual centre of Kazakh statehood.")),
+  choice("video", "burabay", L("Как называют Бурабай за сходство пейзажей со Швейцарией?", "Бурабайды Швейцариямен ұқсастығы үшін қалай атайды?", "What is Burabay called for its resemblance to Switzerland?"), L(["Казахстанская Швейцария", "Казахстанская Норвегия", "Казахстанские Альпы", "Казахстанская Исландия"], ["Қазақстан Швейцариясы", "Қазақстан Норвегиясы", "Қазақстан Альпісі", "Қазақстан Исландиясы"], ["The Switzerland of Kazakhstan", "The Norway of Kazakhstan", "The Alps of Kazakhstan", "The Iceland of Kazakhstan"]), L("Сосновые леса, скалы и озёра дали Бурабаю это прозвище.", "Қарағайлы орман, жартастар мен көлдер Бурабайға осы атауды берді.", "Pine forests, cliffs and lakes earned it this nickname.")),
+  choice("test", "bayanaul", L("Какой ландшафт характерен для Баянаула?", "Баянауылға қандай ландшафт тән?", "What landscape is typical of Bayanaul?"), L(["Гранитные скалы и сосновые леса", "Ледники", "Побережье моря", "Пустынные барханы"], ["Гранит жартастар мен қарағайлы орман", "Мұздықтар", "Теңіз жағалауы", "Шөл шағылдары"], ["Granite cliffs and pine forest", "Glaciers", "Sea coast", "Desert dunes"]), L("Баянаул известен гранитными скалами и сосновыми лесами.", "Баянауыл гранит жартастары мен қарағайлы орманымен әйгілі.", "Bayanaul is known for granite cliffs and pine forest.")),
+  choice("test", "korgalzhyn", L("К какому типу экосистем относится Коргалжын?", "Қорғалжын қандай экожүйе түріне жатады?", "What ecosystem type is Korgalzhyn?"), L(["Водно-болотные угодья", "Тропический лес", "Океан", "Высокогорный ледник"], ["Сулы-батпақты алқап", "Тропиктік орман", "Мұхит", "Биік таулы мұздық"], ["Wetlands", "Tropical forest", "Ocean", "High mountain glacier"]), L("Коргалжын — важный водно-болотный комплекс.", "Қорғалжын — маңызды сулы-батпақты кешен.", "Korgalzhyn is an important wetland complex.")),
+  choice("test", "ulytau", L("Чей мавзолей находится в Улытау?", "Ұлытауда кімнің кесенесі орналасқан?", "Whose mausoleum is in Ulytau?"), L(["Джучи-хана", "Томирис", "Александра Македонского", "Петра I"], ["Жошы ханның", "Томиристің", "Александр Македонскийдің", "I Петрдің"], ["Jochi Khan's", "Tomyris's", "Alexander the Great's", "Peter I's"]), L("В Улытау находится мавзолей Джучи-хана.", "Ұлытауда Жошы хан кесенесі орналасқан.", "Ulytau is home to Jochi Khan's mausoleum.")),
+  choice("test", "karkaraly", L("Какую роль Каркаралы играл в XIX веке?", "XIX ғасырда Қарқаралы қандай рөл атқарды?", "What role did Karkaraly have in the 19th century?"), L(["Ярмарочный центр", "Морской порт", "Столица ханства", "Космодром"], ["Жәрмеңке орталығы", "Теңіз порты", "Хандық астанасы", "Ғарыш айлағы"], ["Trading-fair centre", "Seaport", "Khanate capital", "Cosmodrome"]), L("Каркаралы был известным ярмарочным центром.", "Қарқаралы белгілі жәрмеңке орталығы болды.", "Karkaraly was a noted trading-fair centre.")),
+  choice("test", "burabay", L("Как называется знаменитая скала Бурабая?", "Бурабайдың атақты жартасты қалай аталады?", "What is Burabay's famous rock called?"), L(["Жумбактас", "Хан-Тенгри", "Актау", "Бесшатыр"], ["Жұмбақтас", "Хан-Тәңірі", "Ақтау", "Бесшатыр"], ["Zhumbaktas", "Khan Tengri", "Aktau", "Besshatyr"]), L("Жумбактас — символ Бурабая.", "Жұмбақтас — Бурабайдың символы.", "Zhumbaktas is a symbol of Burabay.")),
 ];
 
-export function normalizeAnswer(str) {
-  return str.trim().toLowerCase().replace(/\s+/g, " ").replace(/ё/g, "е");
-}
+export const matchingPairs = [
+  { id: "bayanaul", place: L("Баянаул", "Баянауыл", "Bayanaul"), fact: L("Гранитные скалы, сосновые леса и озеро Жасыбай", "Гранит жартастар, қарағайлы орман және Жасыбай көлі", "Granite cliffs, pine forest and Lake Zhasybai") },
+  { id: "korgalzhyn", place: L("Қорғалжын", "Қорғалжын", "Korgalzhyn"), fact: L("Самая северная точка гнездования фламинго", "Фламинго ұя салатын ең солтүстіктегі нүкте", "The northernmost flamingo nesting site") },
+  { id: "karkaraly", place: L("Каркаралы", "Қарқаралы", "Karkaraly"), fact: L("«Остров тайги» посреди степи", "Дала ортасындағы «тайга аралы»", "A “taiga island” in the steppe") },
+  { id: "ulytau", place: L("Ұлытау", "Ұлытау", "Ulytau"), fact: L("Духовный центр казахской государственности", "Қазақ мемлекеттілігінің рухани орталығы", "Spiritual centre of Kazakh statehood") },
+  { id: "burabay", place: L("Бурабай", "Бурабай", "Burabay"), fact: L("«Казахстанская Швейцария» и скала Жумбактас", "«Қазақстан Швейцариясы» және Жұмбақтас", "The “Switzerland of Kazakhstan” and Zhumbaktas rock") },
+];
+
+export const mapPlaces = [
+  { id: "burabay", point: [49, 24], name: L("Бурабай", "Бурабай", "Burabay") },
+  { id: "korgalzhyn", point: [39, 43], name: L("Қорғалжын", "Қорғалжын", "Korgalzhyn") },
+  { id: "bayanaul", point: [70, 44], name: L("Баянауыл", "Баянауыл", "Bayanaul") },
+  { id: "karkaraly", point: [58, 66], name: L("Қарқаралы", "Қарқаралы", "Karkaraly") },
+  { id: "ulytau", point: [23, 70], name: L("Ұлытау", "Ұлытау", "Ulytau") },
+];
+
+export function normalizeAnswer(str) { return str.trim().toLowerCase().replace(/\s+/g, " ").replace(/ё/g, "е"); }

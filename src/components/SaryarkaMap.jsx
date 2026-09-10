@@ -14,7 +14,7 @@ const FILTERS = [
   { id: "history", key: "filter_historical_cultural", color: "#d47c24" },
 ];
 
-const COORDINATES = {
+export const COORDINATES = {
   kokshetau: [53.283, 69.383], burabay: [53.083, 70.314], shalkar: [53.183, 70.287],
   korgalzhyn: [50.425, 69.25], bayanaul: [50.793, 75.702], zhasybay: [50.781, 75.62],
   karkaraly: [49.412, 75.474], shaitankol: [49.399, 75.45], begazy: [48.548, 74.907], ulytau: [48.675, 66.916],
@@ -24,8 +24,8 @@ const COORDINATES = {
 
 // The overview deliberately covers the entire country, so Saryarka is shown in
 // its real central position instead of looking like a separate, cropped map.
-const KAZAKHSTAN_BOUNDS = [[40.45, 46.35], [55.55, 87.55]];
-const SARYARKA_AREA = {
+export const KAZAKHSTAN_BOUNDS = [[40.45, 46.35], [55.55, 87.55]];
+export const SARYARKA_AREA = {
   type: "Feature",
   properties: { name: "Сарыарқа / Saryarka" },
   geometry: {
@@ -49,8 +49,8 @@ const SARYARKA_AREA = {
     ]],
   },
 };
-const REGIONS_GEOJSON_URL = "/kazakhstan-regions.geojson";
-const COUNTRY_BORDER_GEOJSON_URL = "/kazakhstan-border.geojson";
+export const REGIONS_GEOJSON_URL = "/kazakhstan-regions.geojson";
+export const COUNTRY_BORDER_GEOJSON_URL = "/kazakhstan-border.geojson";
 
 // Порядок точек образовательного маршрута с запада на восток.
 const ROUTE_IDS = [
