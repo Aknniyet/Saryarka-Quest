@@ -51,13 +51,17 @@
 	@apply space-y-6 lg:col-span-2;
 }
 .place-summary {
-	@apply text-lg leading-relaxed text-[var(--color-ink-soft)];
+	@apply leading-relaxed text-[var(--color-ink-soft)];
+	text-align: justify;
+	text-justify: inter-word;
 }
 .place-section__title {
 	@apply font-display text-xl font-semibold text-[var(--color-ink)];
 }
 .place-section__text {
 	@apply mt-2 leading-relaxed text-[var(--color-ink-soft)];
+	text-align: justify;
+	text-justify: inter-word;
 }
 .place-gallery-title {
 	@apply mb-3 font-display text-xl font-semibold text-[var(--color-ink)];
@@ -70,4 +74,45 @@
 }
 .place-sidebar {
 	@apply space-y-4;
+}
+.place-reference {
+	margin: 1.25rem 0 2rem;
+}
+
+.place-reference p {
+	@apply mt-2 leading-relaxed text-[var(--color-ink-soft)];
+	margin: 0;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+.info-card__value--location {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+}
+
+.info-card__value--location svg {
+	width: 1.1rem;
+	height: 1.1rem;
+	flex: 0 0 auto;
+	fill: none;
+	stroke: var(--color-steppe);
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 1.8;
+}
+
+.place-sources {
+	margin-top: 2rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--color-line);
+}
+
+.place-sources a {
+	display: inline-block;
+	color: var(--color-steppe-deep);
+	font-weight: 600;
+	text-decoration: underline;
+	text-underline-offset: .2rem;
 }

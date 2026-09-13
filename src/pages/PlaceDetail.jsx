@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useParams, Link, Navigate, useLocation } from "react-router-dom";
 import { useLang } from "../context/LangContext";
-import { getPlace } from "../data/places";
+import { getPlace, placeQuestContext, placeReferences } from "../data/places";
 import Illustration from "../components/Illustration";
 import Photo from "../components/Photo";
 import "../styles/pages/shared.css";
@@ -11,6 +12,12 @@ export default function PlaceDetail() {
   const location = useLocation();
   const { t, l } = useLang();
   const place = getPlace(id);
+  const reference = placeReferences[id];
+  const questContext = placeQuestContext[id];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [id]);
 
   if (!place) return <Navigate to="/places" replace />;
   const cameFromMap = location.state?.from === "map";
@@ -30,19 +37,19 @@ export default function PlaceDetail() {
           <h1 className="place-title">{l(place.name)}</h1>
           <p className="place-type">{l(place.type)}</p>
         </div>
-        {place.hasQuest && (
-          <Link
-            to="/quest"
-            className="place-quest-link"
-          >
-            {t("pass_quest_place")}
-          </Link>
-        )}
       </div>
 
       <div className="place-layout">
         <div className="place-content">
           <p className="place-summary">{l(place.short)}</p>
+
+          {reference && <div className="place-reference">
+            <p>{reference.text}</p>
+          </div>}
+
+          {questContext && <p className="place-section__text place-section__text--context">
+            {l(questContext)}
+          </p>}
 
           <div>
             <h2 className="place-section__title">{t("history_section")}</h2>
@@ -67,7 +74,13 @@ export default function PlaceDetail() {
         <aside className="place-sidebar">
           <div className="info-card">
             <p className="info-card__label">{t("location")}</p>
-            <p className="info-card__value">📍 {l(place.region)}</p>
+            <p className="info-card__value info-card__value--location">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s6-5.12 6-11a6 6 0 1 0-12 0c0 5.88 6 11 6 11Z"/>
+                <circle cx="12" cy="10" r="2"/>
+              </svg>
+              {l(place.region)}
+            </p>
           </div>
           <div className="info-card">
             <p className="info-card__label">{t("object_type")}</p>
@@ -86,6 +99,12 @@ export default function PlaceDetail() {
           </div>
         </aside>
       </div>
+
+      {reference && <section className="place-sources">
+        <a href={reference.url} target="_blank" rel="noreferrer">
+          Дереккөз: {reference.label} ↗
+        </a>
+      </section>}
     </div>
   );
 }
