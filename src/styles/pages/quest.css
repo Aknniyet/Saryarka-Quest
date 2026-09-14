@@ -114,6 +114,7 @@
 	background: var(--color-gold);
 	color: var(--color-ink);
 	font-weight: 700;
+	white-space: nowrap;
 }
 .quest-button--outline {
 	border: 1px solid rgba(255,255,255,.2);
@@ -171,6 +172,11 @@
 	font: .625rem var(--font-mono);
 }
 .quest-route__dot--done { border-color: var(--color-steppe); background: var(--color-steppe); color: white; }
+.quest-route__dot--incorrect {
+	border-color: #b9473f;
+	background: #b9473f;
+	color: white;
+}
 .quest-route__place {
 	display: flex;
 	align-items: center;
@@ -255,6 +261,19 @@
 	position: relative;
 	overflow: hidden;
 	border-radius: 1rem;
+}
+
+.quest-video {
+	overflow: hidden;
+	aspect-ratio: 16 / 9;
+	border-radius: 1rem;
+	background: #1e281d;
+}
+
+.quest-video iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
 }
 .quest-video-placeholder > :first-child {
 	width: 100%;
@@ -520,6 +539,16 @@
 	box-shadow: 0 0 0 3px var(--color-steppe-mist);
 }
 
+.map-label--placed {
+	border-style: dashed;
+	background: var(--color-steppe-mist);
+}
+
+.map-label--placed.map-label--selected {
+	background: var(--color-steppe);
+	color: white;
+}
+
 .map-quiz__canvas {
 	position: relative;
 	overflow: hidden;
@@ -579,6 +608,13 @@
 	margin-top: .4rem;
 	color: var(--color-ink-soft);
 	font-size: .8125rem;
+}
+
+.quest-score-hint {
+	margin-top: .7rem;
+	color: var(--color-steppe-deep);
+	font-size: .875rem;
+	font-weight: 700;
 }
 .quest-submit {
 	margin-top: 1.5rem;
@@ -710,7 +746,14 @@
 	overflow: hidden;
 	border-radius: 50%;
 }
-.quest-certificate__logo-image { width: 4.5rem; height: 4.5rem; object-fit: cover; border-radius: 50%; }
+.quest-certificate__logo-image {
+	display: block;
+	width: 4.5rem;
+	height: 4.5rem;
+	margin: 0 auto;
+	object-fit: cover;
+	border-radius: 50%;
+}
 .quest-certificate__logo img {
 	width: 100%;
 	height: 100%;

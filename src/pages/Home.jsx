@@ -7,7 +7,7 @@ import "../styles/pages/home.css";
 import "../styles/pages/shared.css";
 
 export default function Home() {
-  const { t } = useLang();
+  const { t, l } = useLang();
 
   return <div>
     <section className="home-hero">
@@ -17,8 +17,13 @@ export default function Home() {
           <h1 className="home-hero__title">GeoSaryArqa</h1>
           <p className="home-hero__text">{t("hero_line1")}<br />{t("hero_line2")} {t("hero_line3")}</p>
           <div className="home-actions"><a href="#map" className="home-button home-button--primary">{t("hero_explore_map")}</a><Link to="/quest" className="home-button home-button--secondary">{t("hero_start_quest")}</Link></div>
+          <p className="home-hero__quote">{l({
+            kz: "Сарыарқа — тарих пен табиғат тоғысқан ерекше өңір.",
+            ru: "Сарыарка — особый край, где встречаются история и природа.",
+            en: "Saryarka is a distinctive region where history and nature meet.",
+          })}</p>
         </div>
-        <div className="home-hero__visual"><div className="home-hero__glow" /><div className="home-hero__image-frame"><img src="/saryarka-hero-atlas.png" alt="Steppe landscape of Saryarka" className="home-hero__image" /></div></div>
+        <div className="home-hero__visual"><div className="home-hero__glow" /><div className="home-hero__image-frame"><img src="/saryarka-hero-map-collage.png" alt="Illustrated landscape collage of Saryarka" className="home-hero__image" /><span className="home-map-pin home-map-pin--burabay">● Бурабай</span><span className="home-map-pin home-map-pin--bayanaul">● Баянауыл</span><span className="home-map-pin home-map-pin--karkaraly">● Қарқаралы</span><span className="home-map-pin home-map-pin--ulytau">● Ұлытау</span></div></div>
       </div>
     </section>
     <section id="map" className="home-section home-section--map"><div className="home-section__heading"><div><span className="page-eyebrow">Saryarka field atlas</span><h2 className="home-section__title">{t("map_title")}</h2></div><p className="home-section__description">{t("map_subtitle")}</p></div><SaryarkaMap /></section>

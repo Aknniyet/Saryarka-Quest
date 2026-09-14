@@ -1,10 +1,10 @@
 @reference "../../index.css";
 .home-hero {
-	@apply overflow-hidden px-5 py-12 lg:px-8 lg:py-20;
+	@apply relative overflow-hidden px-5 py-12 lg:px-8 lg:py-20;
 	background-image: radial-gradient(circle at 18% 30%, rgba(79,122,61,.07) 0, rgba(79,122,61,0) 45%), radial-gradient(circle at 78% 65%, rgba(46,116,136,.08) 0, rgba(46,116,136,0) 40%), radial-gradient(circle at 50% 10%, rgba(192,138,68,.06) 0, rgba(192,138,68,0) 40%);
 }
 .home-hero__grid {
-	@apply mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16;
+	@apply relative z-10 mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16;
 }
 .home-hero__copy {
 	@apply relative z-10;
@@ -24,6 +24,9 @@
 .home-actions {
 	@apply mt-8 flex flex-wrap gap-3;
 }
+.home-hero__quote {
+	@apply mt-8 max-w-sm border-l-2 border-[var(--color-gold)] pl-4 font-display text-sm italic leading-relaxed text-[var(--color-ink-soft)];
+}
 .home-button {
 	@apply rounded-full px-6 py-3 text-sm font-bold shadow-sm transition hover:-translate-y-0.5;
 }
@@ -34,17 +37,30 @@
 	@apply border border-[var(--color-line)] bg-white text-[var(--color-ink)];
 }
 .home-hero__visual {
-	@apply relative mx-auto w-full max-w-2xl;
+	@apply absolute inset-y-0 right-0 z-0 w-[64%] max-w-none;
 }
 .home-hero__glow {
-	@apply absolute -inset-5 rounded-[3rem] bg-[var(--color-gold-light)]/40 blur-3xl;
+	@apply absolute inset-0 blur-3xl;
+	background: radial-gradient(circle at 55% 45%, rgba(214, 163, 57, .3), transparent 42%), radial-gradient(circle at 78% 58%, rgba(79, 122, 61, .22), transparent 48%);
 }
 .home-hero__image-frame {
-	@apply relative overflow-hidden rounded-[2.25rem] border-[10px] border-white bg-white shadow-[0_24px_65px_rgba(52,83,42,.2)];
+	@apply relative h-full w-full overflow-visible;
 }
 .home-hero__image {
-	@apply h-[340px] w-full object-cover sm:h-[440px];
+	@apply h-full w-full object-cover;
+	filter: saturate(.92) contrast(.96);
+	mask-image: linear-gradient(to right, transparent 0%, black 25%, black 86%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 86%, transparent 100%);
+	mask-composite: intersect;
+	-webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 86%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 86%, transparent 100%);
+	-webkit-mask-composite: source-in;
 }
+.home-map-pin {
+	@apply absolute rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-[var(--color-steppe-deep)] shadow-md;
+}
+.home-map-pin--burabay { top: 19%; left: 58%; }
+.home-map-pin--bayanaul { top: 40%; left: 47%; }
+.home-map-pin--karkaraly { top: 38%; right: 13%; }
+.home-map-pin--ulytau { bottom: 27%; left: 54%; }
 .home-section {
 	@apply mx-auto max-w-7xl px-5 lg:px-8;
 }

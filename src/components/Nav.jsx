@@ -53,7 +53,7 @@ export default function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-1 rounded-full border border-[var(--color-line)] bg-white p-1 font-mono text-xs font-medium sm:flex">
+          <div className="hidden items-center gap-1 rounded-full border border-[var(--color-line)] bg-white p-1 font-sans text-xs font-semibold sm:flex">
             {LANGS.map((l) => (
               <button
                 key={l.code}
@@ -65,7 +65,7 @@ export default function Nav() {
                 }`}
                 aria-pressed={lang === l.code}
               >
-                {l.code === "kz" ? "ҚАЗ" : l.label}
+                <span className="uppercase">{l.code === "kz" ? "ҚАЗ" : l.label}</span>
               </button>
             ))}
           </div>
@@ -104,14 +104,14 @@ export default function Nav() {
               </NavLink>
             ))}
           </nav>
-          <div className="mt-3 flex items-center gap-1 rounded-full border border-[var(--color-line)] bg-white p-1 font-mono text-xs font-medium w-fit">
+          <div className="mt-3 flex w-fit items-center gap-1 rounded-full border border-[var(--color-line)] bg-white p-1 font-sans text-xs font-semibold">
             {LANGS.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
                 className={`rounded-full px-2.5 py-1 ${lang === l.code ? "bg-[var(--color-steppe)] text-white" : "text-[var(--color-ink-soft)]"}`}
               >
-                {l.code === "kz" ? "ҚАЗ" : l.label}
+                <span className="uppercase">{l.code === "kz" ? "ҚАЗ" : l.label}</span>
               </button>
             ))}
           </div>
