@@ -844,8 +844,113 @@
 	}
 }
 @media (max-width: 639px) {
+	.quest-page {
+		padding: 1.25rem 1rem 2rem;
+	}
+	.quest-intro, .quest-final, .quest-card, .quest-certificate__form, .quest-certificate__preview {
+		border-radius: 1.25rem;
+	}
+	.quest-intro, .quest-final, .quest-certificate__form {
+		padding: 1.5rem 1.1rem;
+	}
+	.quest-intro h1, .quest-final h1 {
+		font-size: 1.9rem;
+	}
+	.quest-flow__summary {
+		align-items: flex-start;
+		gap: .5rem;
+		font-size: .75rem;
+	}
+	.quest-card__header {
+		gap: .75rem;
+		padding: 1rem;
+	}
+	.quest-card__header h2, .quest-question {
+		font-size: 1.1rem;
+	}
+	.quest-card__body {
+		padding: 1rem;
+	}
+	.quest-option {
+		padding: .8rem;
+	}
+	.quest-option, .matching-fact {
+		font-size: .8rem;
+	}
+	.quest-button {
+		max-width: 100%;
+	}
+	.quest-submit {
+		width: 100%;
+	}
+	.map-quiz__canvas {
+		min-height: 25rem;
+	}
+	.map-quiz-pin--filled {
+		max-width: 7.5rem;
+		white-space: normal;
+		text-align: center;
+	}
 	.matching-round__lines {
 		display: none;
+	}
+	.quest-final > strong {
+		font-size: clamp(2rem, 10vw, 2.5rem);
+		line-height: 1.15;
+	}
+	.quest-certificate__preview {
+		padding: 1.25rem .7rem 1.5rem;
+		border-width: 3px;
+	}
+	.quest-certificate__artwork {
+		opacity: .72;
+	}
+	.quest-certificate__content {
+		margin: 0 .7rem;
+		padding: .45rem .2rem .7rem;
+		border-radius: 1rem;
+		background: rgba(255, 253, 247, .88);
+	}
+	.quest-certificate__logo-image {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+	.quest-certificate__brand {
+		margin-top: .85rem;
+		font-size: .55rem;
+		letter-spacing: .16em;
+	}
+	.quest-certificate__preview h1 {
+		margin-top: .85rem;
+		font-size: clamp(1.6rem, 9vw, 2rem);
+	}
+	.quest-certificate__preview h1 + .quest-certificate__line + p {
+		margin-top: 1.15rem;
+		font-size: .75rem;
+	}
+	.quest-certificate__preview > .quest-certificate__content > strong {
+		max-width: 18rem;
+		margin-right: auto;
+		margin-left: auto;
+		font-size: clamp(1.2rem, 6.5vw, 1.5rem);
+		line-height: 1.2;
+	}
+	.quest-certificate__content > strong + p {
+		max-width: 18rem;
+		margin-top: .9rem;
+		margin-right: auto;
+		margin-left: auto;
+		font-size: .75rem;
+	}
+	.quest-certificate__score {
+		max-width: 100%;
+		margin-top: 1.15rem;
+		padding: .45rem .75rem;
+		font-size: .72rem;
+		line-height: 1.45;
+	}
+	.quest-certificate__date {
+		margin-top: 1.5rem;
 	}
 }
 @media print {

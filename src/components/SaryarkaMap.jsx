@@ -126,7 +126,7 @@ function KazakhstanOverview() {
   return null;
 }
 
-export default function SaryarkaMap({ initialSelected = null, height = "h-[570px] sm:h-[680px] lg:h-[780px]" }) {
+export default function SaryarkaMap({ initialSelected = null, height = "h-[460px] sm:h-[680px] lg:h-[780px]" }) {
   const { t, l } = useLang();
   const [filter, setFilter] = useState("all");
   const [selectedId, setSelectedId] = useState(initialSelected);

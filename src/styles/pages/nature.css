@@ -29,3 +29,26 @@
 .nature-grid {
 	@apply grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4;
 }
+@media (max-width: 420px) {
+	.nature-tabs {
+		max-width: 100%;
+		overflow-x: auto;
+	}
+	.nature-tab {
+		flex: 0 0 auto;
+		padding: .5rem .8rem;
+		font-size: .8125rem;
+	}
+	.nature-feature {
+		border-radius: 1.5rem;
+	}
+	.nature-feature__content {
+		padding: 1.5rem 1.25rem;
+	}
+	.nature-feature__image-wrap {
+		padding: .75rem;
+	}
+	.nature-grid {
+		gap: .75rem;
+	}
+}

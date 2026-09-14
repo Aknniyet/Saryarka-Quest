@@ -110,6 +110,12 @@ footer span[aria-hidden="true"] { display: none; }
 
 .quest-route-line { background: var(--color-steppe); }
 
+@media (max-width: 374px) {
+  header > div > a > span:not([aria-hidden="true"]) {
+    display: none;
+  }
+}
+
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(14px); }

@@ -107,3 +107,77 @@
 .home-quest__button {
 	@apply mt-8 inline-flex rounded-full bg-[var(--color-gold)] px-7 py-3 text-sm font-bold text-[var(--color-ink)] shadow-lg transition hover:-translate-y-0.5;
 }
+@media (max-width: 1023px) {
+	.home-hero {
+		padding-top: 2.5rem;
+		padding-bottom: 2.5rem;
+	}
+	.home-hero__visual {
+		position: relative;
+		inset: auto;
+		width: 100%;
+		height: clamp(15rem, 62vw, 23rem);
+		margin-top: 1.5rem;
+	}
+	.home-hero__image-frame {
+		overflow: hidden;
+		border: 1px solid rgba(79, 122, 61, .18);
+		border-radius: 1.5rem;
+		box-shadow: 0 14px 30px rgba(52, 83, 42, .16);
+	}
+	.home-hero__image {
+		mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+		-webkit-mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+	}
+	.home-map-pin {
+		padding: .35rem .55rem;
+		font-size: .625rem;
+	}
+	.home-map-pin--burabay { top: 14%; left: 54%; }
+	.home-map-pin--bayanaul { top: 43%; left: 42%; }
+	.home-map-pin--karkaraly { top: 35%; right: 8%; }
+	.home-map-pin--ulytau { bottom: 18%; left: 49%; }
+}
+@media (max-width: 420px) {
+	.home-hero {
+		padding-right: 1rem;
+		padding-left: 1rem;
+	}
+	.home-hero__badge {
+		max-width: 100%;
+		padding: .55rem .75rem;
+		font-size: 9px;
+		letter-spacing: .1em;
+	}
+	.home-hero__title {
+		font-size: 2.7rem;
+	}
+	.home-hero__text {
+		font-size: 1rem;
+	}
+	.home-actions {
+		flex-direction: column;
+	}
+	.home-button {
+		width: 100%;
+		text-align: center;
+	}
+	.home-section {
+		padding-right: 1rem;
+		padding-left: 1rem;
+	}
+	.home-section--map {
+		padding-top: 3.5rem;
+		padding-bottom: 3.5rem;
+	}
+	.home-section__title, .home-nature__title {
+		font-size: 2rem;
+	}
+	.home-quest {
+		border-radius: 1.5rem;
+		padding: 2.5rem 1.25rem;
+	}
+	.home-quest__title {
+		font-size: 2rem;
+	}
+}

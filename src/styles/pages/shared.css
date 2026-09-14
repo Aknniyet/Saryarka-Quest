@@ -38,3 +38,11 @@
 .fact-list__mark {
 	@apply text-[var(--color-steppe)];
 }
+@media (max-width: 420px) {
+	.page-container {
+		padding: 1.5rem 1rem;
+	}
+	.info-card {
+		padding: 1rem;
+	}
+}
