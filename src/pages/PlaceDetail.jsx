@@ -102,7 +102,7 @@ export default function PlaceDetail() {
 
       {reference && <section className="place-sources">
         <a href={reference.url} target="_blank" rel="noreferrer">
-          Дереккөз: {reference.label} ↗
+          {t("source")}: {reference.label} ↗
         </a>
       </section>}
     </div>

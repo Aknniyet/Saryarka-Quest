@@ -12,7 +12,9 @@
 	@apply mt-1 font-display text-3xl font-semibold text-[var(--color-ink)];
 }
 .nature-detail-summary {
-	@apply mt-3 text-lg leading-relaxed text-[var(--color-ink-soft)];
+	@apply mt-3 max-w-2xl text-base leading-7 text-[var(--color-ink-soft)];
+	text-align: justify;
+	text-justify: inter-word;
 }
 .nature-detail-photo {
 	@apply order-1 w-fit max-w-full justify-self-center overflow-hidden rounded-3xl border border-[var(--color-line)] bg-[#edf0e8] shadow-sm md:order-2;
@@ -25,6 +27,13 @@
 }
 .detail-facts {
 	@apply mt-6;
+}
+.nature-sources {
+	margin-top: 2rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid var(--color-line);
+	color: var(--color-ink-soft);
+	font-size: .9375rem;
 }
 .place-photo {
 	@apply overflow-hidden rounded-3xl border border-[var(--color-line)] shadow-sm;

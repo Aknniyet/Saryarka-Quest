@@ -24,7 +24,9 @@ export default function NatureDetail() {
         <div className="nature-detail-copy">
           <p className="nature-detail-kind">{l(item.class)}</p>
           <h1 className="nature-detail-title">{l(item.name)}</h1>
-          <p className="nature-detail-summary">{l(item.short)}</p>
+          <p className="nature-detail-summary">
+            {l(item.short)} {t(isAnimal ? "animal_summary_context" : "plant_summary_context")} {l(item.habitat)}
+          </p>
         </div>
 
         <div className="nature-detail-photo">
@@ -67,6 +69,10 @@ export default function NatureDetail() {
           ))}
         </ul>
       </div>
+
+      <section className="nature-sources">
+        <p>{t("source")}: {t("nature_source_placeholder")}</p>
+      </section>
     </div>
   );
 }

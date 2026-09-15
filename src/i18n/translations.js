@@ -84,6 +84,18 @@ export const t = {
   back_to_list: { kz: "← Тізімге оралу", ru: "← Назад к списку", en: "← Back to list" },
   bloom_period: { kz: "Гүлдеу мерзімі", ru: "Период цветения", en: "Bloom period" },
   conservation_status: { kz: "Қорғау мәртебесі", ru: "Статус охраны", en: "Conservation status" },
+  source: { kz: "Дереккөз", ru: "Источник", en: "Source" },
+  nature_source_placeholder: { kz: "жоба материалдары", ru: "материалы проекта", en: "project materials" },
+  animal_summary_context: {
+    kz: "Сарыарқада ол мынадай табиғи ортада кездеседі:",
+    ru: "В Сарыарке его можно встретить в следующих природных условиях:",
+    en: "In Saryarka, it can be found in the following natural settings:",
+  },
+  plant_summary_context: {
+    kz: "Сарыарқада бұл өсімдік көбіне мына жерде өседі:",
+    ru: "В Сарыарке это растение чаще всего растёт здесь:",
+    en: "In Saryarka, this plant most often grows here:",
+  },
 
   // Quest intro
   quest_hero_title: { kz: "GEOSARYARQA", ru: "GEOSARYARQA", en: "GEOSARYARQA" },
