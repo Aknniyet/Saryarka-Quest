@@ -50,7 +50,7 @@ export default function Nature() {
           </div>
           <div className="nature-feature__image-wrap">
             <img
-              src="/saryarka-animals-map.png"
+              src="/saryarka-animals-map.webp"
               alt="Сарыарқа аңдары картасы"
               className="nature-feature__image"
             />

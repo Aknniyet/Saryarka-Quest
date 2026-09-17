@@ -14,8 +14,8 @@ const TOTAL_TASKS = 12;
 const STORAGE_KEY = "sq_quest_progress_v4";
 const PROGRESS_LIFETIME_MS = 30 * 60 * 1000;
 const VIDEO_DURATION_MS = 5000;
-const certificateArtwork = "/certificate-side-illustration.png";
-const certificateLogo = "/geosaryarqa-logo.png";
+const certificateArtwork = "/certificate-side-illustration.webp";
+const certificateLogo = "/geosaryarqa-logo.webp";
 const copy = {
   ru: { video: "Видеовопрос", test: "Тест", match: "Сопоставление", map: "Карта Сарыарки", mapTitle: "Перетащите названия мест на точки карты", mapHint: "Можно перетащить карточку или нажать на неё, а затем на точку.", checkMap: "Проверить карту", complete: "Завершить квест", certificate: "Получить сертификат", retry: "Пройти заново", below: "Для сертификата нужно набрать минимум 15 баллов.", score: "Ваш результат", selected: "Выбрано", place: "Место", fact: "Факт", name: "Введите имя для сертификата", create: "Создать сертификат", print: "Печать / Сохранить", awarded: "Сертификат выдан за успешное прохождение GeoSaryArqa" },
   kz: { video: "Бейнесұрақ", test: "Тест", match: "Сәйкестендіру", map: "Сарыарқа картасы", mapTitle: "Орын атауларын картадағы нүктелерге апарыңыз", mapHint: "Карточканы сүйреп апарыңыз немесе оны, сосын нүктені басыңыз.", checkMap: "Картаны тексеру", complete: "Квесті аяқтау", certificate: "Сертификат алу", retry: "Қайта өту", below: "Сертификат алу үшін кемінде 15 балл жинау қажет.", score: "Сіздің нәтижеңіз", selected: "Таңдалды", place: "Орын", fact: "Дерек", name: "Сертификат үшін атыңызды енгізіңіз", create: "Сертификат жасау", print: "Басып шығару / Сақтау", awarded: "Сертификат GeoSaryArqa квестін сәтті аяқтағаны үшін берілді" },

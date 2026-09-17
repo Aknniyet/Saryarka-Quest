@@ -22,8 +22,6 @@ export const COORDINATES = {
   astana: [51.1694, 71.4491], karlag: [49.6778, 72.6819], shunak: [47.2083, 72.7597],
 };
 
-// The overview deliberately covers the entire country, so Saryarka is shown in
-// its real central position instead of looking like a separate, cropped map.
 export const KAZAKHSTAN_BOUNDS = [[40.45, 46.35], [55.55, 87.55]];
 export const SARYARKA_AREA = {
   type: "Feature",
@@ -31,9 +29,6 @@ export const SARYARKA_AREA = {
   geometry: {
     type: "Polygon",
     coordinates: [[
-      // Контур соответствует области № 5 на учебной физико-географической карте:
-      // Казахский мелкосопочник (Сарыарқа), а не административным областям.
-      // Трассировка физико-географической зоны № 5 с предоставленной карты.
       [65.75, 53.75], [66.75, 53.7], [67.7, 53.78], [68.7, 53.72],
       [69.65, 53.82], [70.8, 53.62], [71.85, 53.48], [72.95, 53.42],
       [74.15, 53.3], [75.25, 53.15], [76.35, 52.92], [77.45, 52.58],
@@ -59,7 +54,7 @@ const ROUTE_IDS = [
   "zerendi", "bayanaul", "zhasybay", "kobeituz", "mashhur-jusup",
 ];
 
-// Additional landmarks shown on the map. They are kept separate from the long-form place cards.
+// Дополнительные достопримечательности, отображаемые на карте. Они хранятся отдельно от подробных карточек объектов.
 const MAP_LANDMARKS = [
   { id: "zerendi", category: "nature", coords: [52.906, 69.156], name: { kz: "\u0417\u0435\u0440\u0435\u043d\u0434\u0456", ru: "\u0417\u0435\u0440\u0435\u043d\u0434\u0430", en: "Zerendi" }, type: { kz: "\u0422\u0430\u0431\u0438\u0493\u0438 \u043d\u044b\u0441\u0430\u043d", ru: "\u041f\u0440\u0438\u0440\u043e\u0434\u043d\u044b\u0439 \u043e\u0431\u044a\u0435\u043a\u0442", en: "Natural site" } },
   { id: "kobeituz", category: "lake", coords: [51.7425, 73.5475], name: { kz: "\u041a\u04e9\u0431\u0435\u0439\u0442\u04b1\u0437 \u043a\u04e9\u043b\u0456", ru: "\u041e\u0437\u0435\u0440\u043e \u041a\u043e\u0431\u0435\u0439\u0442\u0443\u0437", en: "Lake Kobeituz" }, type: { kz: "\u041a\u04e9\u043b", ru: "\u041e\u0437\u0435\u0440\u043e", en: "Lake" } },

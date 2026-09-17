@@ -12,7 +12,6 @@ export function LangProvider({ children }) {
   }, []);
 
   const t = useCallback((key) => tr(dict[key], lang), [lang]);
-  // for data objects shaped like { ru, kz, en }
   const l = useCallback((obj) => tr(obj, lang), [lang]);
 
   const value = useMemo(() => ({ lang, setLang: changeLang, t, l }), [lang, changeLang, t, l]);

@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="site-footer__brand">
             <div className="site-footer__logo">
               <img
-                src="/geosaryarqa-logo.png"
+                src="/geosaryarqa-logo.webp"
                 alt="GeoSaryArqa"
               />
             </div>

@@ -1,27 +1,27 @@
 const ANIMAL_PHOTOS = {
-  saiga: "/animals/saiga.png", argali: "/animals/argali.png",
-  "roe-deer": "/animals/roe-deer.png", "steppe-eagle": "/animals/steppe-eagle.png",
-  flamingo: "/animals/flamingo.png", marmot: "/animals/marmot.png",
-  corsac: "/animals/corsac.png", bustard: "/animals/bustard.png",
+  saiga: "/animals/saiga.webp", argali: "/animals/argali.webp",
+  "roe-deer": "/animals/roe-deer.webp", "steppe-eagle": "/animals/steppe-eagle.webp",
+  flamingo: "/animals/flamingo.webp", marmot: "/animals/marmot.webp",
+  corsac: "/animals/corsac.webp", bustard: "/animals/bustard.webp",
 };
 
 const PLANT_PHOTOS = {
-  "feather-grass": "/images/fescue.png", "schrenk-tulip": "/images/fritillaria.png",
-  wormwood: "/images/fescue.png", "dwarf-iris": "/images/dwarf-iris.png",
-  fritillaria: "/images/fritillaria.png", astragalus: "/images/astragalus.png",
-  fescue: "/images/fescue.png", statice: "/images/statice.png",
+  "feather-grass": "/images/fescue.webp", "schrenk-tulip": "/images/fritillaria.webp",
+  wormwood: "/images/fescue.webp", "dwarf-iris": "/images/dwarf-iris.webp",
+  fritillaria: "/images/fritillaria.webp", astragalus: "/images/astragalus.webp",
+  fescue: "/images/fescue.webp", statice: "/images/statice.webp",
 };
 
 // Все пути локальные: сайт не загружает фотографии с внешних сайтов.
 const PLACE_PHOTOS = {
-  bayanaul: "/images/bayanaul.png", korgalzhyn: "/images/korgalzhyn.png",
-  karkaraly: "/images/karkaraly.png", ulytau: "/images/ulytau.png",
-  burabay: "/images/burabay.png", zhasybay: "/images/zhasybay.png",
-  shaitankol: "/images/shaitankol.png", begazy: "/images/begazy.png",
-  kokshetau: "/images/kokshetau.png", shalkar: "/images/shalkar.png",
-  zerendi: "/images/zerendi.png", kobeituz: "/images/kobeituz.png",
-  alzhir: "/images/alzhir.png", "mashhur-jusup": "/images/mashhur-jusup.png",
-  astana: "/images/astana.png", karlag: "/images/karlag.png", shunak: "/images/shunak.png",
+  bayanaul: "/images/bayanaul.webp", korgalzhyn: "/images/korgalzhyn.webp",
+  karkaraly: "/images/karkaraly.webp", ulytau: "/images/ulytau.webp",
+  burabay: "/images/burabay.webp", zhasybay: "/images/zhasybay.webp",
+  shaitankol: "/images/shaitankol.webp", begazy: "/images/begazy.webp",
+  kokshetau: "/images/kokshetau.webp", shalkar: "/images/shalkar.webp",
+  zerendi: "/images/zerendi.webp", kobeituz: "/images/kobeituz.webp",
+  alzhir: "/images/alzhir.webp", "mashhur-jusup": "/images/mashhur-jusup.webp",
+  astana: "/images/astana.webp", karlag: "/images/karlag.webp", shunak: "/images/shunak.webp",
 };
 
 export function photoUrl(id, type = "place") {

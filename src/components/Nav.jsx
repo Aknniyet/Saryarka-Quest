@@ -23,7 +23,7 @@ export default function Nav() {
         <NavLink to="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
           <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full shadow-sm">
             <img
-              src="/geosaryarqa-logo.png"
+              src="/geosaryarqa-logo.webp"
               alt="GeoSaryArqa"
               className="h-full w-full scale-[1.25] object-cover"
             />
