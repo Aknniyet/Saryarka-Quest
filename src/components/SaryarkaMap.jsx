@@ -46,6 +46,7 @@ export const SARYARKA_AREA = {
 };
 export const REGIONS_GEOJSON_URL = "/kazakhstan-regions.geojson";
 export const COUNTRY_BORDER_GEOJSON_URL = "/kazakhstan-border.geojson";
+export const SARYARKA_GEOJSON_URL = "/saryarka-boundary.geojson";
 
 // Порядок точек образовательного маршрута с запада на восток.
 const ROUTE_IDS = [
@@ -128,6 +129,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[460px
   const [fullscreen, setFullscreen] = useState(false);
   const [regions, setRegions] = useState(null);
   const [countryBorder, setCountryBorder] = useState(null);
+  const [saryarkaBoundary, setSaryarkaBoundary] = useState(null);
   const mapShellRef = useRef(null);
   const mapLocations = useMemo(() => places, []);
 
@@ -139,15 +141,17 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[460px
 
   useEffect(() => {
     let active = true;
-    Promise.all([fetch(REGIONS_GEOJSON_URL), fetch(COUNTRY_BORDER_GEOJSON_URL)])
-      .then(async ([regionsResponse, borderResponse]) => [
+    Promise.all([fetch(REGIONS_GEOJSON_URL), fetch(COUNTRY_BORDER_GEOJSON_URL), fetch(SARYARKA_GEOJSON_URL)])
+      .then(async ([regionsResponse, borderResponse, saryarkaResponse]) => [
         regionsResponse.ok ? await regionsResponse.json() : null,
         borderResponse.ok ? await borderResponse.json() : null,
+        saryarkaResponse.ok ? await saryarkaResponse.json() : null,
       ])
-      .then(([regionsData, borderData]) => {
+      .then(([regionsData, borderData, saryarkaData]) => {
         if (!active) return;
         setRegions(regionsData);
         setCountryBorder(borderData);
+        setSaryarkaBoundary(saryarkaData);
       })
       .catch(() => { /* The basemap remains usable if a visitor is offline. */ });
     return () => { active = false; };
@@ -175,7 +179,7 @@ export default function SaryarkaMap({ initialSelected = null, height = "h-[460px
         <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" attribution="Tiles &copy; Esri" />
         {regions && <GeoJSON data={regions} style={{ color: "#ffffff", weight: 1.15, opacity: 0.92, fillColor: "#203229", fillOpacity: 0.06 }} interactive={false} />}
         {countryBorder && <GeoJSON data={countryBorder} style={{ color: "#f6d671", weight: 3, opacity: 1, fillOpacity: 0 }} interactive={false} />}
-        <GeoJSON data={SARYARKA_AREA} style={{ color: "#d9a63d", weight: 3, opacity: 1, fillColor: "#d9a63d", fillOpacity: 0.16, smoothFactor: 0, lineCap: "butt", lineJoin: "miter" }} interactive={false} />
+        {saryarkaBoundary && <GeoJSON data={saryarkaBoundary} style={{ color: "#d9a63d", weight: 3, opacity: 1, fillColor: "#d9a63d", fillOpacity: 0.16, smoothFactor: 0, lineCap: "butt", lineJoin: "miter" }} interactive={false} />}
         <Polyline positions={routePositions} pathOptions={{ color: "#d6a339", weight: 4, opacity: 0.85, dashArray: "9 9" }} interactive={false} />
         {visible.map((place) => {
           const type = typeFor(place);
