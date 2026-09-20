@@ -5,6 +5,9 @@
 .nature-card__image {
 	@apply h-full w-full transition-transform duration-700;
 }
+.photo-unavailable {
+	background: linear-gradient(135deg, #dbe5d2, #9db18b);
+}
 .nature-card:hover .nature-card__image {
 	transform: scale(1.05);
 }

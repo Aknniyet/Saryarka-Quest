@@ -86,6 +86,10 @@ export const t = {
   conservation_status: { kz: "Қорғау мәртебесі", ru: "Статус охраны", en: "Conservation status" },
   source: { kz: "Дереккөз", ru: "Источник", en: "Source" },
   nature_source_placeholder: { kz: "жоба материалдары", ru: "материалы проекта", en: "project materials" },
+  animals_map_eyebrow: { kz: "Жануарлар картасы", ru: "Карта животных", en: "Animal map" },
+  animals_map_title: { kz: "Сарыарқаның жануарлар әлемі", ru: "Животный мир Сарыарки", en: "Wildlife of Saryarka" },
+  animals_map_text: { kz: "Қорықтар мен далалы аймақтарда мекендейтін жануарларды бір картадан таныңыз.", ru: "Познакомьтесь на одной карте с животными, обитающими в заповедниках и степных районах.", en: "Explore animals that live in reserves and steppe areas on one map." },
+  animals_map_alt: { kz: "Сарыарқа жануарларының картасы", ru: "Карта животных Сарыарки", en: "Map of Saryarka animals" },
   animal_summary_context: {
     kz: "Сарыарқада ол мынадай табиғи ортада кездеседі:",
     ru: "В Сарыарке его можно встретить в следующих природных условиях:",

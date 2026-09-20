@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useLang } from "../context/LangContext";
 import { animals } from "../data/animals";
 import { plants } from "../data/plants";
@@ -8,7 +9,13 @@ import "../styles/pages/nature.css";
 
 export default function Nature() {
   const { t } = useLang();
-  const [tab, setTab] = useState("animals");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [tab, setTab] = useState(searchParams.get("tab") === "plants" ? "plants" : "animals");
+
+  const changeTab = (nextTab) => {
+    setTab(nextTab);
+    setSearchParams({ tab: nextTab }, { replace: true });
+  };
 
   const list = tab === "animals" ? animals : plants;
 
@@ -22,13 +29,13 @@ export default function Nature() {
 
       <div className="nature-tabs">
         <button
-          onClick={() => setTab("animals")}
+          onClick={() => changeTab("animals")}
           className={`nature-tab ${tab === "animals" ? "nature-tab--active" : ""}`}
         >
           {t("animals")}
         </button>
         <button
-          onClick={() => setTab("plants")}
+          onClick={() => changeTab("plants")}
           className={`nature-tab ${tab === "plants" ? "nature-tab--active" : ""}`}
         >
           {t("plants")}
@@ -39,19 +46,19 @@ export default function Nature() {
         <section className="nature-feature">
           <div className="nature-feature__content">
             <span className="page-eyebrow mb-3">
-              Жануарлар картасы
+              {t("animals_map_eyebrow")}
             </span>
             <h2 className="nature-feature__title">
-              Сарыарқаның жануарлар әлемі
+              {t("animals_map_title")}
             </h2>
             <p className="nature-feature__text">
-              Қорықтар мен далалы аймақтарда мекендейтін жануарларды бір картадан таныңыз.
+              {t("animals_map_text")}
             </p>
           </div>
           <div className="nature-feature__image-wrap">
             <img
               src="/saryarka-animals-map.webp"
-              alt="Сарыарқа аңдары картасы"
+              alt={t("animals_map_alt")}
               className="nature-feature__image"
             />
           </div>

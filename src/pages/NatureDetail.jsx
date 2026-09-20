@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useLang } from "../context/LangContext";
 import { getAnimal } from "../data/animals";
@@ -11,12 +12,20 @@ export default function NatureDetail() {
   const { t, l } = useLang();
   const item = type === "animals" ? getAnimal(id) : getPlant(id);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [type, id]);
+
   if (!item) return <Navigate to="/nature" replace />;
   const isAnimal = type === "animals";
+  const sources = item.sources?.length ? item.sources : isAnimal ? [{
+    label: { kz: "IUCN Қызыл тізімі", ru: "Красный список МСОП", en: "IUCN Red List" },
+    url: "https://www.iucnredlist.org/",
+  }] : [];
 
   return (
     <div className="page-container page-container--narrow">
-      <Link to="/nature" className="back-link">
+      <Link to={`/nature?tab=${isAnimal ? "animals" : "plants"}`} className="back-link">
         {t("back_to_list")}
       </Link>
 
@@ -71,7 +80,20 @@ export default function NatureDetail() {
       </div>
 
       <section className="nature-sources">
-        <p>{t("source")}: {t("nature_source_placeholder")}</p>
+        <p className="info-card__label">{t("source")}</p>
+        {sources.length ? (
+          <ul className="source-list">
+            {sources.map((source) => (
+              <li key={source.url}>
+                <a href={source.url} target="_blank" rel="noreferrer">
+                  {l(source.label)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>{t("nature_source_placeholder")}</p>
+        )}
       </section>
     </div>
   );

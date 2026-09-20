@@ -3,13 +3,17 @@ const ANIMAL_PHOTOS = {
   "roe-deer": "/animals/roe-deer.webp", "steppe-eagle": "/animals/steppe-eagle.webp",
   flamingo: "/animals/flamingo.webp", marmot: "/animals/marmot.webp",
   corsac: "/animals/corsac.webp", bustard: "/animals/bustard.webp",
+  "black-stork": "/animals/black-stork.jpg", "golden-eagle": "/animals/golden-eagle.jpg",
+  "pallas-cat": "/animals/pallas-cat.jpg",
 };
 
 const PLANT_PHOTOS = {
-  "feather-grass": "/images/fescue.webp", "schrenk-tulip": "/images/fritillaria.webp",
-  wormwood: "/images/fescue.webp", "dwarf-iris": "/images/dwarf-iris.webp",
-  fritillaria: "/images/fritillaria.webp", astragalus: "/images/astragalus.webp",
-  fescue: "/images/fescue.webp", statice: "/images/statice.webp",
+  "karkaraly-rowan": "/plants/karkaraly-rowan.png",
+  "karkaraly-barberry": "/plants/karkaraly-barberry.jpg",
+  "dense-sphagnum": "/plants/dense-sphagnum.jpg",
+  "slender-poppy": "/plants/slender-poppy.jpg",
+  "spring-adonis": "/plants/spring-adonis.jpg",
+  "red-birch": "/plants/red-birch.jpg",
 };
 
 // Все пути локальные: сайт не загружает фотографии с внешних сайтов.
@@ -26,10 +30,12 @@ const PLACE_PHOTOS = {
 
 export function photoUrl(id, type = "place") {
   if (type === "animals") return ANIMAL_PHOTOS[id] || ANIMAL_PHOTOS.saiga;
-  if (type === "plants") return PLANT_PHOTOS[id] || PLANT_PHOTOS["feather-grass"];
+  if (type === "plants") return PLANT_PHOTOS[id] || null;
   return PLACE_PHOTOS[id] || PLACE_PHOTOS.burabay;
 }
 
 export default function Photo({ id, type, alt = "", className = "" }) {
-  return <img src={photoUrl(id, type)} alt={alt} className={`block object-cover ${className}`} loading="lazy" />;
+  const src = photoUrl(id, type);
+  if (!src) return <div className={`photo-unavailable ${className}`} role="img" aria-label={alt} />;
+  return <img src={src} alt={alt} className={`block object-cover ${className}`} loading="lazy" />;
 }

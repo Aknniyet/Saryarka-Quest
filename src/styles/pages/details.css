@@ -22,6 +22,10 @@
 .nature-detail-photo img {
 	@apply h-56 !w-auto max-w-full !object-contain sm:h-64;
 }
+.nature-detail-photo .photo-unavailable {
+	width: min(100%, 21rem);
+	height: 14rem;
+}
 .detail-info-grid {
 	@apply mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2;
 }
@@ -34,6 +38,27 @@
 	border-top: 1px solid var(--color-line);
 	color: var(--color-ink-soft);
 	font-size: .9375rem;
+}
+.nature-sources > p {
+	margin: 0;
+}
+.source-list {
+	margin: .5rem 0 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: .45rem;
+}
+.source-list a {
+	display: inline-flex;
+	align-items: center;
+	gap: .35rem;
+	color: var(--color-steppe-deep);
+	font-weight: 600;
+	line-height: 1.4;
+	text-decoration: underline;
+	text-underline-offset: .2rem;
+	word-break: break-word;
 }
 .place-photo {
 	@apply overflow-hidden rounded-3xl border border-[var(--color-line)] shadow-sm;
