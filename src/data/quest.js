@@ -1,7 +1,7 @@
 const L = (ru, kz, en) => ({ ru, kz, en });
 const choice = (kind, placeId, question, options, explanation, videoUrl = null) => ({ kind, placeId, question, type: "choice", options, correctIndex: 0, explanation, videoUrl });
 
-export const questSteps = [
+const rawQuestSteps = [
   choice("video", "astana", L("С какого года Астана считается столицей Казахстана?", "Астана қаласы қай жылдан бастап Қазақстан елінің астанасы болып саналды?", "Since which year has Astana been Kazakhstan's capital?"), L(["1997 год", "1995 год", "1998 год", "2000 год"], ["1997 жыл", "1995 жыл", "1998 жыл", "2000 жыл"], ["1997", "1995", "1998", "2000"]), L("10 декабря 1997 года Акмола стала официальной столицей; в 1998 году город получил название Астана.", "Ақмола 1997 жылғы 10 желтоқсанда ресми астана болды, ал 1998 жылы Астана атауы берілді.", "Akmola became the official capital on 10 December 1997 and was renamed Astana in 1998."), "https://drive.google.com/file/d/1Llt9SIXpY_C8e4oT3HnUk84Jf4KvUpSn/preview"),
   choice("video", "begazy", L("Какой учёный исследовал памятники Бегазы-Дандыбай и определил их значение?", "Беғазы-Дәндібай тарихи мекенін зерттеп, маңызын айқындаған қай ғалым?", "Which scholar studied the Begazy-Dandybai monuments and established their significance?"), L(["Алькей Маргулан", "Каныш Сатпаев", "Кемаль Акишев", "Ермухан Бекмаханов"], ["Әлкей Марғұлан", "Қаныш Сәтбаев", "Кемел Ақышев", "Ермұхан Бекмаханов"], ["Alkey Margulan", "Kanysh Satpayev", "Kemal Akishev", "Yermukhan Bekmakhanov"]), L("Алькей Маргулан исследовал памятники Бегазы и ввёл название культуры в научный оборот.", "Әлкей Марғұлан Беғазы ескерткіштерін зерттеп, мәдениет атауын ғылыми айналымға енгізді.", "Alkey Margulan studied the Begazy monuments and established the culture's name in scholarship."), "https://drive.google.com/file/d/1YOVhczCAeYLS4cjhFiQgdRtTXg8t_cRj/preview"),
   choice("video", "zerendi", L("Кто из первых космонавтов отдыхал в этом регионе в советское время?", "Бұл өңірде кеңес дәуірінде демалған алғашқы ғарышкер кім болған?", "Which early cosmonaut vacationed in this region during the Soviet era?"), L(["Юрий Гагарин", "Герман Титов", "Алексей Леонов", "Валентина Терешкова"], ["Юрий Гагарин", "Герман Титов", "Алексей Леонов", "Валентина Терешкова"], ["Yuri Gagarin", "German Titov", "Alexei Leonov", "Valentina Tereshkova"]), L("Зерендинский край известен как место отдыха; по местным материалам здесь бывал Юрий Гагарин.", "Зеренді өңірі демалыс орны ретінде танылған, жергілікті материалдарда Юрий Гагариннің де келгені айтылады.", "Zerendi is known as a recreation area; local materials report that Yuri Gagarin visited."), "https://drive.google.com/file/d/1UNwVJJGojERy1eRiSXkfx8NNVjRQw63Y/preview"),
@@ -13,6 +13,19 @@ export const questSteps = [
   choice("test", "karkaraly", L("Какую роль Каркаралы играл в XIX веке?", "XIX ғасырда Қарқаралы қандай рөл атқарды?", "What role did Karkaraly have in the 19th century?"), L(["Ярмарочный центр", "Морской порт", "Столица ханства", "Космодром"], ["Жәрмеңке орталығы", "Теңіз порты", "Хандық астанасы", "Ғарыш айлағы"], ["Trading-fair centre", "Seaport", "Khanate capital", "Cosmodrome"]), L("Каркаралы был известным ярмарочным центром.", "Қарқаралы белгілі жәрмеңке орталығы болды.", "Karkaraly was a noted trading-fair centre.")),
   choice("test", "burabay", L("Как называется знаменитая скала Бурабая?", "Бурабайдың атақты жартасты қалай аталады?", "What is Burabay's famous rock called?"), L(["Жумбактас", "Хан-Тенгри", "Актау", "Бесшатыр"], ["Жұмбақтас", "Хан-Тәңірі", "Ақтау", "Бесшатыр"], ["Zhumbaktas", "Khan Tengri", "Aktau", "Besshatyr"]), L("Жумбактас — символ Бурабая.", "Жұмбақтас — Бурабайдың символы.", "Zhumbaktas is a symbol of Burabay.")),
 ];
+
+const localVideoUrls = {
+  astana: "/videos/astana.mp4",
+  begazy: "/videos/begazy.mp4",
+  zerendi: "/videos/zerendi.mp4",
+  shaitankol: "/videos/shaitankol.mp4",
+  korgalzhyn: "/videos/korgalzhyn.mp4",
+};
+
+export const questSteps = rawQuestSteps.map((step) => ({
+  ...step,
+  videoUrl: localVideoUrls[step.placeId] ?? step.videoUrl,
+}));
 
 export const matchingPairs = [
   { id: "bayanaul", place: L("Баянаул", "Баянауыл", "Bayanaul"), fact: L("Гранитные скалы, сосновые леса и озеро Жасыбай", "Гранит жартастар, қарағайлы орман және Жасыбай көлі", "Granite cliffs, pine forest and Lake Zhasybai") },

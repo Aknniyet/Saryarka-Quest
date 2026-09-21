@@ -255,7 +255,7 @@
 	border-radius: 1rem;
 	background: var(--color-ink);
 }
-.quest-video iframe {
+.quest-video iframe, .quest-video video {
 	display: block;
 	position: absolute;
 	inset: 0;
@@ -279,7 +279,7 @@
 	background: #1e281d;
 }
 
-.quest-video iframe {
+.quest-video iframe, .quest-video video {
 	display: block;
 	position: absolute;
 	inset: 0;
