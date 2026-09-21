@@ -857,7 +857,10 @@
 }
 @media (max-width: 639px) {
 	.quest-video {
-		min-height: 11.5rem;
+		/* Give phone users a large portrait viewing area instead of a short strip. */
+		height: min(32rem, calc(100svh - 10rem));
+		min-height: 28rem;
+		aspect-ratio: auto;
 	}
 	.quest-page {
 		padding: 1.25rem 1rem 2rem;
