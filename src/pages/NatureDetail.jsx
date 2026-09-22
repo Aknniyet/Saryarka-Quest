@@ -85,9 +85,11 @@ export default function NatureDetail() {
           <ul className="source-list">
             {sources.map((source) => (
               <li key={source.url}>
-                <a href={source.url} target="_blank" rel="noreferrer">
-                  {l(source.label)}
-                </a>
+                {source.url ? (
+                  <a href={source.url} target="_blank" rel="noreferrer">
+                    {l(source.label)}
+                  </a>
+                ) : l(source.label)}
               </li>
             ))}
           </ul>

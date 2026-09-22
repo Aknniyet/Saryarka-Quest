@@ -5,6 +5,11 @@ const ANIMAL_PHOTOS = {
   corsac: "/animals/corsac.webp", bustard: "/animals/bustard.webp",
   "black-stork": "/animals/black-stork.jpg", "golden-eagle": "/animals/golden-eagle.jpg",
   "pallas-cat": "/animals/pallas-cat.jpg",
+  maral: "/animals/maral.png", "sika-deer": "/animals/sika-deer.png",
+  moose: "/animals/moose.png", "wild-boar": "/animals/wild-boar.png",
+  badger: "/animals/badger.png", lynx: "/animals/lynx.png",
+  "mountain-hare": "/animals/hares.png", "brown-hare": "/animals/hares.png",
+  "red-fox": "/animals/red-fox.png", wolf: "/animals/wolf.png",
 };
 
 const PLANT_PHOTOS = {
